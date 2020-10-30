@@ -1,7 +1,27 @@
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  on:
-    branch: main
+os:
+  - linux
+services:
+  - docker
+language: node_js
+node_js:
+  - "12.13.1"
+branches:
+  only:
+  - main
+cache:
+  directories:
+    - node_modules
+    - $(npm config get prefix)/bin/ng
+before_install:
+  - npm install @angular/cli -g
+install:
+  - npm install
+script:
+  - npm run build
+after_success:
+  - 'test $TRAVIS_PULL_REQUEST = false && bash ./deploy.sh'
+notifications:
+  webhooks:
+    on_success: change
+    on_failure: change
+    on_start: false
