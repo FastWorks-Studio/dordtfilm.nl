@@ -17,7 +17,7 @@ install:
 script:
   - npm run build
 after_success:
-  - 'test $TRAVIS_PULL_REQUEST = false && bash ./deploy.sh'
+  - 'test \$TRAVIS_PULL_REQUEST = false && bash ./deploy.sh'
 notifications:
   webhooks:
     on_success: change
