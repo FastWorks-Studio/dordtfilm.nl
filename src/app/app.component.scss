@@ -4,6 +4,15 @@ $logo_title_font: "Black Quality";
 $logo_subtitle_font: "Isocteur";
 $body_font: "Robot Slab";
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: red;
+}
+
 h1 {
   font-family: $logo_title_font;
   font-size: 10em;
@@ -11,7 +20,7 @@ h1 {
 }
 
 h2 {
-  font-family: $body_font;
+  font-family: $logo_subtitle_font;
   font-size: 2.5em;
   color: black;
 }
