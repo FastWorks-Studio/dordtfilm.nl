@@ -11,26 +11,26 @@ $scroll-button-padding: 20px;
   display: none;
 }
 
-.home:after {
-  background-image: url("../assets/images/home.webp");
+.home > .page-background {
+  background-image: url("../assets/images/home.jpg");
 }
-.about-1:after {
-  background-image: url("../assets/images/about.webp");
+.about-1 > .page-background {
+  background-image: url("../assets/images/about.jpg");
 }
-.trailer:after {
-  background-image: url("../assets/images/trailer.webp");
+.trailer > .page-background {
+  background-image: url("../assets/images/trailer.jpg");
 }
-.about-2:after {
-  background-image: url("../assets/images/about-2.webp");
+.about-2 > .page-background {
+  background-image: url("../assets/images/about-2.jpg");
 }
-.about-3:after {
-  background-image: url("../assets/images/about-3.webp");
+.about-3 > .page-background {
+  background-image: url("../assets/images/about-3.jpg");
 }
-.experience:after {
-  background-image: url("../assets/images/experience.webp");
+.experience > .page-background {
+  background-image: url("../assets/images/experience.jpg");
 }
-.contact:after {
-  background-image: url("../assets/images/contact.webp");
+.contact > .page-background {
+  background-image: url("../assets/images/contact.jpg");
 }
 
 .home-logo {

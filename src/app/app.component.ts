@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     const pageElements: HTMLElement[] = (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
       .filter(page => !!page.offsetParent);
       this.updateArrowAlpha(pageElements);
-      this.updateParallax(pageElements);
+      // this.updateParallax(pageElements);
   }
 
   private updateArrowAlpha(pageElements: HTMLElement[]): void {
@@ -52,9 +52,19 @@ export class AppComponent implements OnInit {
   }
 
   private updateParallax(pageElements: HTMLElement[]): void {
-    pageElements.forEach(page => {
-      const offset: number = page.getBoundingClientRect().y;
-      console.log(`offset for ${page.className}: ${offset}`);
+    pageElements.filter(this.isInViewport).forEach(element => {
+      const rect: DOMRect = element.getBoundingClientRect();
+      const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
+      console.log(`Offset for ${element.className}: ${offset}`);
     });
+  }
+
+  private isInViewport(element: HTMLElement): boolean {
+    const rect: DOMRect = element.getBoundingClientRect();
+    return rect.y >= -rect.height && rect.y <= rect.height;
+  }
+
+  private clamped(value: number, range: { min: number, max: number }): number {
+    return Math.max(range.min, Math.min(range.max, value));
   }
 }
