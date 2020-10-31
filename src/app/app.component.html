@@ -1,5 +1,24 @@
-<body>
-  <h1>{{ title }}</h1>
-  <h2>{{ subtitle }}</h2>
-  <button>{{ buttonText }}</button>
-</body>
+<section class="home">
+  <div class="home-logo">
+    <h1 class="googletext">{{ title }} {{ subtitle }}</h1>
+    <span class="title">{{ title }}</span>
+    <div class="spacer-logo"></div>
+    <span class="subtitle">{{ subtitle }}</span>
+  </div>
+  <div class="bottom-bar">
+    <button class="button">{{ buttonText }}</button>
+    <div class="spacer-button"></div>
+    <button
+      (click)="scrollDown()"
+      class="scrollDownButton"
+      type="button"
+      aria-hidden="true"
+    >
+      <img
+        class="scrollDownButton--image"
+        src="/assets/icons/arrow-down.svg"
+        alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is"
+      />
+    </button>
+  </div>
+</section>

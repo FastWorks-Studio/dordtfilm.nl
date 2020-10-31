@@ -1,26 +1,81 @@
-@import "../assets/fonts/fonts.scss";
+@import "shared/base";
 
 $logo_title_font: "Black Quality";
 $logo_subtitle_font: "Isocteur";
 $body_font: "Robot Slab";
+$scroll-button-width: 42px;
+$scroll-button-height: 15px;
+$scroll-button-padding: 30px 100px;
 
-html,
-body {
-  width: 100%;
+.home {
   height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: red;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 50px 0px 50px;
+  background-image: url("../assets/images/Stills/Dordrecht\ door\ de\ jaren\ heen_v13.00_00_20_08.Still002.jpg");
 }
 
-h1 {
+.home-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.googletext {
+  display: none;
+}
+
+.title {
+  margin-bottom: -0.15em;
+  margin-top: 0.05em;
   font-family: $logo_title_font;
-  font-size: 10em;
-  color: black;
+  font-size: 4em;
+  font-weight: normal;
 }
 
-h2 {
+.button {
+  border-radius: 10px;
+  background-color: transparent;
+  border: 3px solid white;
+  padding: 15px;
+  width: 100%;
+}
+
+.spacer-logo {
+  height: 6px;
+}
+
+.spacer-button {
+  height: 6px;
+}
+
+.subtitle {
   font-family: $logo_subtitle_font;
-  font-size: 2.5em;
-  color: black;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.scrollDownButton {
+  background-color: transparent;
+  // width: 100%;
+  // height: 20px;
+  // padding: $scroll-button-padding;
+  cursor: pointer;
+  outline: none;
+  @include dropShadow();
+  @include animation-bounce;
+}
+.scrollDownButton--image {
+  width: inherit;
+  height: inherit;
 }
