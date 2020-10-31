@@ -1,24 +1,42 @@
-<section class="home">
-  <div class="home-logo">
-    <h1 class="googletext">{{ title }} {{ subtitle }}</h1>
-    <span class="title">{{ title }}</span>
-    <div class="spacer-logo"></div>
-    <span class="subtitle">{{ subtitle }}</span>
+<section class="page home">
+  <div class="page-content">
+    <div class="home-logo">
+      <h1 class="googletext">{{ title }} {{ subtitle }}</h1>
+      <span class="title">{{ title }}</span>
+      <div class="spacer-logo"></div>
+      <span class="subtitle">{{ subtitle }}</span>
+      <div class="spacer-button"></div>
+      <button class="button">{{ buttonText }}</button>
+    </div>
+    <div class="bottom-bar">
+      <button
+        (click)="scrollDown()"
+        class="scrollDownButton"
+        type="button"
+        aria-hidden="true"
+      >
+        <img
+          class="scrollDownButton--image"
+          src="/assets/icons/arrow-down.svg"
+          alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is"
+        />
+      </button>
+    </div>
   </div>
-  <div class="bottom-bar">
-    <button class="button">{{ buttonText }}</button>
-    <div class="spacer-button"></div>
-    <button
-      (click)="scrollDown()"
-      class="scrollDownButton"
-      type="button"
-      aria-hidden="true"
-    >
-      <img
-        class="scrollDownButton--image"
-        src="/assets/icons/arrow-down.svg"
-        alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is"
-      />
-    </button>
+</section>
+
+<section class="page about">
+  <div class="page-content">
+    <p>Deze film is met liefdevolle toewijding gemaakt om u de stad te laten ervaren als nooit tevoren. Zie de pracht van de stad en de Dordtse Biesbosch in alle vier de seizoenen en uit allerlei hoeken gefilmd. Bovendien zijn we te land, ter zee en in de lucht.</p>
+    <p>Natuurlijk komt u van alles te weten over de geschiedenis van de stad en wat Dordrecht nu zo bijzonder maakt. Vergeet echter die slome, stoffige geschiedenislessen van vroeger; hier houden we het vlot en boeiend, afgewisseld met een paar <del>flauwe</del> uitstekende grapjes.</p>
+    <p>Wat maakt de stad zo bijzonder? Wat maakt een Dordtenaar speciaal? Zijn de inwoners trots op hun stad? We praten hierover met Dordtenaren en andere experts. Samen proberen we te ontdekken wat de Dordtse identiteit kenmerkt en komen we tot soms verrassende ontdekkingen over de stad en haar inwoners.</p>
+  </div>
+</section>
+
+<section class="page experience">
+  <div class="page-content">
+    <h3 class="header">De ervaring</h3>
+    <p>We nemen u mee door het prachtige oude stadscentrum, de wijken eromheen en de schitterende natuur die het Dordtse eiland te bieden heeft. Door het gebruik van de meest moderne filmtechnieken zoals drones, bewegende camera’s, haarscherpe beelden en surroundgeluid wordt u figuurlijk het beeld ingezogen.</p>
+    <p>Deze film moet u absoluut gezien hebben als u zichzelf nog Schapenkop wilt durven noemen, óf als u als niet-Dordtenaar meer wilt weten over deze geweldige stad. Ervaar het zelf in Dordrecht door de jaren heen.</p>
   </div>
 </section>

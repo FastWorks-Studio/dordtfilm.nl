@@ -5,17 +5,16 @@ $logo_subtitle_font: "Isocteur";
 $body_font: "Robot Slab";
 $scroll-button-width: 42px;
 $scroll-button-height: 15px;
-$scroll-button-padding: 30px 100px;
+$scroll-button-padding: 20px;
 
-.home {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 80px 50px 0px 50px;
-  background-image: url("../assets/images/Stills/Dordrecht\ door\ de\ jaren\ heen_v13.00_00_20_08.Still002.jpg");
+.home:after {
+  background-image: url("../assets/images/home.jpg");
+}
+.about:after {
+  background-image: url("../assets/images/about.jpg");
+}
+.experience:after {
+  background-image: url("../assets/images/experience.jpg");
 }
 
 .home-logo {
@@ -39,8 +38,9 @@ $scroll-button-padding: 30px 100px;
   margin-bottom: -0.15em;
   margin-top: 0.05em;
   font-family: $logo_title_font;
-  font-size: 4em;
+  font-size: 80px;
   font-weight: normal;
+  @include dropShadow();
 }
 
 .button {
@@ -49,31 +49,33 @@ $scroll-button-padding: 30px 100px;
   border: 3px solid white;
   padding: 15px;
   width: 100%;
+  @include dropShadow();
 }
 
 .spacer-logo {
-  height: 6px;
+  height: 10px;
 }
 
 .spacer-button {
-  height: 6px;
+  height: 60px;
 }
 
 .subtitle {
   font-family: $logo_subtitle_font;
-  font-size: 1em;
+  font-size: 21px;
   font-weight: normal;
+  @include dropShadow(1);
 }
 
 .scrollDownButton {
   background-color: transparent;
-  // width: 100%;
-  // height: 20px;
-  // padding: $scroll-button-padding;
+  padding: $scroll-button-padding;
   cursor: pointer;
   outline: none;
-  @include dropShadow();
+  @include dropShadow(1);
   @include animation-bounce;
+  position: absolute;
+  bottom: 20px;
 }
 .scrollDownButton--image {
   width: inherit;

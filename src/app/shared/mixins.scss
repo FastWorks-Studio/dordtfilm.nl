@@ -1,12 +1,11 @@
 @import "variables";
-@import "functions";
 
-@mixin dropShadow() {
-  filter: drop-shadow($shadow-main);
+@mixin dropShadow($intensity: 0.4) {
+  filter: drop-shadow(0px 2px 6px rgba($color-dark, $intensity));
 }
 
 @mixin textShadow($color) {
-  text-shadow: emFromPx(0.5) emFromPx(0.5) 0 $color;
+  text-shadow: 0.5px 0.5px 0 $color;
 }
 
 @mixin breakpoint($name) {
@@ -15,9 +14,6 @@
   }
   @else if $name == tablet {
     @media (min-width: 768px) and (max-width: 1079px) { @content; }
-  }
-  @else if $name == low-height {
-    @media (max-height: 600px) and (max-width: 1080px) and (orientation: landscape) { @content; }
   }
   @else {
     // Mobile

@@ -1,3 +1,5 @@
+@import 'app/shared/base.scss';
+
 /* You can add global styles to this file, and also import other style files */
 * {
   margin: 0;
@@ -14,6 +16,8 @@ html,
 body {
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body, button {
@@ -27,10 +31,59 @@ body, button {
 
 a:focus,
 button:focus {
-  outline-color: red;
+  outline-color: $color-tint;
 }
 
 ::selection {
-  background: blue;
-  color: green;
+  background: $color-tint;
+  color: $color-light;
+}
+
+.header {
+  font-size: 30px;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.5em;
+  @include dropShadow();
+}
+
+p {
+  @include dropShadow(1);
+  margin-bottom: 1em;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  &-content {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    filter: brightness(70%);
+  }
 }
