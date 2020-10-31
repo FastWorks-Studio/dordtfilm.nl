@@ -1,0 +1,42 @@
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding-bottom: getVw(getVwSizeForScreenWidth(20, 'mobile'));
+  @include breakpoint('tablet') {
+    padding-bottom: getVw(getVwSizeForScreenWidth(20, 'tablet'));
+  }
+  @include breakpoint('desktop') {
+    padding-bottom: getVw(getVwSizeForScreenWidth(40, 'desktop'));
+  }
+}
+
+// Containers
+.container {
+  padding: getVw($padding-top-mobile - 3.5) getVw($padding-left-right-mobile) 0 getVw($padding-left-right-mobile);
+  @include breakpoint('tablet') {
+    padding: getVw($padding-top-tablet - 1) getVw($padding-left-right-tablet) 0 getVw($padding-left-right-tablet);
+  }
+
+  @include breakpoint('desktop') {
+    padding: getVw($padding-top-desktop) getVw($padding-left-right-mobile) 0 getVw($padding-left-right-mobile);
+  }
+}
+
+.container--cancel {
+  margin-left: #{-$padding-left-right-mobile}px;
+  margin-right: #{-$padding-left-right-mobile}px;
+  @include breakpoint('tablet') {
+    margin-left: #{-$padding-left-right-tablet}px;
+    margin-right: #{-$padding-left-right-tablet}px;
+  }
+  @include breakpoint('desktop') {
+    margin-left: #{-$padding-left-right-desktop}px;
+    margin-right: #{-$padding-left-right-desktop}px;
+  }
+}

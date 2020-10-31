@@ -1,0 +1,23 @@
+@import "variables";
+
+@function emFromPx($pixels, $context: $browser-context-em) {
+  @return #{$pixels/$context}em;
+}
+
+@function getVw($value) {
+  @return #{$value}vw;
+}
+
+// Input is in px - gets a vw size for a given input and base screen size. Calculated relative to design, which is
+// made for three base sizes.
+@function getVwSizeForScreenWidth($inputInPx, $size) {
+  @if $size == 'tablet' {
+    @return $inputInPx / $base-screen-size-tablet * 100;
+  }
+  @if $size == 'desktop' {
+    @return $inputInPx / $base-screen-size-desktop * 100;
+  }
+  @else { // Mobile
+    @return $inputInPx / $base-screen-size-mobile * 100;
+  }
+}

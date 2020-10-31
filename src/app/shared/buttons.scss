@@ -1,0 +1,23 @@
+.button {
+  display: block;
+  padding: getVw(getVwSizeForScreenWidth(10, 'mobile'));
+  margin: getVw(getVwSizeForScreenWidth(10, 'mobile')) 0;
+
+  text-decoration: none;
+}
+
+.button--primary {
+  background: $color-blue;
+  color: $color-white;
+}
+
+.button--secondary {
+  background: $color-red;
+  color: $color-white;
+}
+
+.button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
