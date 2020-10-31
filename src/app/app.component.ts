@@ -37,16 +37,24 @@ export class AppComponent implements OnInit {
   }
 
   public onWindowScroll(event: Event): void {
-    this.updateArrowAlpha();
-  }
-
-  private updateArrowAlpha(): void {
     const pageElements: HTMLElement[] = (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
       .filter(page => !!page.offsetParent);
+      this.updateArrowAlpha(pageElements);
+      this.updateParallax(pageElements);
+  }
+
+  private updateArrowAlpha(pageElements: HTMLElement[]): void {
     const last: HTMLElement = pageElements[pageElements.length - 1];
     const offset: number = last.getBoundingClientRect().y;
     const height: number = last.getBoundingClientRect().height;
     const alpha: number = Math.max(0, Math.min(100, offset - (height - 100)) / 100);
     this.arrowAlpha = alpha;
+  }
+
+  private updateParallax(pageElements: HTMLElement[]): void {
+    pageElements.forEach(page => {
+      const offset: number = page.getBoundingClientRect().y;
+      console.log(`offset for ${page.className}: ${offset}`);
+    });
   }
 }
