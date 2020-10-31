@@ -37,6 +37,10 @@ export class AppComponent implements OnInit {
   }
 
   public onWindowScroll(event: Event): void {
+    this.updateArrowAlpha();
+  }
+
+  private updateArrowAlpha(): void {
     const pageElements: HTMLElement[] = (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
       .filter(page => !!page.offsetParent);
     const last: HTMLElement = pageElements[pageElements.length - 1];
