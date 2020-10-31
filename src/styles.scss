@@ -1,4 +1,4 @@
-@import 'app/shared/base.scss';
+@import "app/shared/base.scss";
 
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -7,38 +7,37 @@
   border: 0;
   box-sizing: border-box;
   color: white;
-  font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 html,
 body {
-  width: 100vw;
-  height: 100vh;
   overflow-x: hidden;
   max-width: 100%;
+  background-color: black;
 }
 
 body {
   font-size: 16px;
 
-  @include breakpoint('tablet') {
+  @include breakpoint("tablet") {
     font-size: 24px;
   }
 
-  @include breakpoint('desktop') {
+  @include breakpoint("desktop") {
     font-size: 28px;
   }
 }
 
 button {
-  font-size: getVw(getVwSizeForScreenWidth(23, 'mobile'));
+  font-size: getVw(getVwSizeForScreenWidth(23, "mobile"));
 
-  @include breakpoint('tablet') {
+  @include breakpoint("tablet") {
     font-size: 30px;
   }
-  @include breakpoint('desktop') {
+  @include breakpoint("desktop") {
     font-size: 35px;
   }
 }
@@ -59,18 +58,18 @@ button:focus {
 }
 
 .header {
-  font-size: getVw(getVwSizeForScreenWidth(30, 'mobile'));
+  font-size: getVw(getVwSizeForScreenWidth(30, "mobile"));
   font-weight: bold;
   width: 100%;
   text-align: left;
   margin-bottom: 0.5em;
   @include dropShadow();
 
-  @include breakpoint('tablet') {
-    font-size: getVw(getVwSizeForScreenWidth(40, 'tablet'));
+  @include breakpoint("tablet") {
+    font-size: getVw(getVwSizeForScreenWidth(40, "tablet"));
   }
-  @include breakpoint('desktop') {
-    font-size: getVw(getVwSizeForScreenWidth(60, 'desktop'));
+  @include breakpoint("desktop") {
+    font-size: getVw(getVwSizeForScreenWidth(60, "desktop"));
   }
 }
 
@@ -82,14 +81,14 @@ p {
     margin-bottom: 0;
   }
 
-  @include breakpoint('desktop') {
-    padding-right: getVw(getVwSizeForScreenWidth(200, 'desktop'));
+  @include breakpoint("desktop") {
+    padding-right: getVw(getVwSizeForScreenWidth(200, "desktop"));
   }
 }
 
 .page {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -114,17 +113,17 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: getVw(getVwSizeForScreenWidth(20, 'mobile'));
+    padding: getVw(getVwSizeForScreenWidth(20, "mobile"));
     position: relative;
     z-index: 2;
     max-width: 1920px;
 
-    @include breakpoint('tablet') {
-      padding: getVw(getVwSizeForScreenWidth(60, 'tablet'));
+    @include breakpoint("tablet") {
+      padding: getVw(getVwSizeForScreenWidth(60, "tablet"));
       align-items: flex-start;
     }
-    @include breakpoint('desktop') {
-      padding: getVw(getVwSizeForScreenWidth(70, 'desktop'));
+    @include breakpoint("desktop") {
+      padding: getVw(getVwSizeForScreenWidth(70, "desktop"));
       align-items: flex-start;
     }
   }

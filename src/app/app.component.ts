@@ -37,10 +37,8 @@ export class AppComponent implements OnInit {
   }
 
   public onWindowScroll(event: Event): void {
-    const pageElements: HTMLElement[] = (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
-      .filter(page => !!page.offsetParent);
-      this.updateArrowAlpha(pageElements);
-      // this.updateParallax(pageElements);
+      this.updateArrowAlpha(this.getActiveElements('page'));
+      // this.updateParallax(this.getActiveElements('page-background'));
   }
 
   private updateArrowAlpha(pageElements: HTMLElement[]): void {
@@ -55,7 +53,9 @@ export class AppComponent implements OnInit {
     pageElements.filter(this.isInViewport).forEach(element => {
       const rect: DOMRect = element.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
-      console.log(`Offset for ${element.className}: ${offset}`);
+      // let background = element.child
+      element.style.filter = `blur(${offset * 10});`;
+      console.log(`translate(${offset * 1000}, 0)`);
     });
   }
 
@@ -66,5 +66,10 @@ export class AppComponent implements OnInit {
 
   private clamped(value: number, range: { min: number, max: number }): number {
     return Math.max(range.min, Math.min(range.max, value));
+  }
+
+  private getActiveElements(id: string): HTMLElement[] {
+    return (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
+      .filter(page => !!page.offsetParent);
   }
 }
