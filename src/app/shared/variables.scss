@@ -7,3 +7,8 @@ $color-tint: #2D7CC1;
 $font-regular: "Roboto Slab", Helvetica, Arial, sans-serif;
 $font-logo-title: "Black Quality", "Roboto Slab", Helvetica, Arial, sans-serif;
 $font-mono: "Isocteur", "Roboto Slab", Helvetica, Arial, sans-serif;
+
+// Arbitrary, lifted from designs - in px (but can't add px unit due to calculation bugs with odd units in scss)
+$base-screen-size-mobile: 375;
+$base-screen-size-tablet: 768;
+$base-screen-size-desktop: 1200;

@@ -39,17 +39,6 @@ $scroll-button-padding: 20px;
   align-items: center;
 }
 
-.bottom-bar {
-  position: fixed;
-  z-index: 420;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 61px;
-  bottom: 0;
-}
-
 .googletext {
   display: none;
 }
@@ -58,14 +47,18 @@ $scroll-button-padding: 20px;
   margin-bottom: -0.15em;
   margin-top: 0.05em;
   font-family: $logo_title_font;
-  font-size: 80px;
+  font-size: getVw(getVwSizeForScreenWidth(80, 'mobile'));
   font-weight: normal;
   @include dropShadow();
+
+  @include breakpoint('desktop') {
+    font-size: getVw(getVwSizeForScreenWidth(200, 'desktop'));
+  }
 }
 
 .button {
   border-radius: 10px;
-  font-size: 23px;
+  font-size: getVw(getVwSizeForScreenWidth(23, 'mobile'));
   background-color: transparent;
   border: 3px solid white;
   padding: 7px 15px;
@@ -73,6 +66,17 @@ $scroll-button-padding: 20px;
   text-decoration: none;
   text-align: center;
   @include dropShadow(1);
+
+  @include breakpoint('tablet') {
+    font-size: 30px;
+    width: auto;
+    padding: 10px 30px;
+  }
+  @include breakpoint('desktop') {
+    font-size: 30px;
+    width: auto;
+    padding: 20px 40px;
+  }
 }
 
 .spacer-logo {
@@ -81,16 +85,45 @@ $scroll-button-padding: 20px;
 
 .spacer-button {
   height: 60px;
+  @include breakpoint('tablet') {
+    height: 80px;
+  }
+  @include breakpoint('desktop') {
+    height: 100px;
+  }
 }
 
 .subtitle {
   font-family: $logo_subtitle_font;
-  font-size: 21px;
+  font-size: getVw(getVwSizeForScreenWidth(21, 'mobile'));
   font-weight: normal;
   @include dropShadow(1);
+
+  @include breakpoint('desktop') {
+    font-size: getVw(getVwSizeForScreenWidth(50, 'desktop'));
+  }
+}
+
+.bottom-bar {
+  position: fixed;
+  z-index: 420;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+
+  @include breakpoint('tablet') {
+    height: 35px;
+  }
+  @include breakpoint('desktop') {
+    height: 40px;
+  }
 }
 
 .scrollDownButton {
+  box-sizing: content-box;
   background-color: transparent;
   padding: $scroll-button-padding;
   cursor: pointer;
@@ -99,6 +132,10 @@ $scroll-button-padding: 20px;
   @include animation-bounce;
   position: absolute;
   bottom: 20px;
+  height: inherit;
+  &:active {
+    background: none;
+  }
 }
 .scrollDownButton--image {
   width: inherit;
