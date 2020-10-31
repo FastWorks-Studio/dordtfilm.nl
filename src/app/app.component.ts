@@ -8,7 +8,8 @@ import { OnInit, Component } from '@angular/core';
 export class AppComponent implements OnInit {
   public title: string = 'Dordrecht';
   public subtitle: string = 'door de jaren heen';
-  public buttonText: string = 'Koop nu kaartjes';
+  public buttonText: string = 'Like ons op Facebook';
+  public buttonHref: string = 'https://www.facebook.com/dordtfilm';
   public arrowAlpha: number = 1;
 
   private wrapperElement: HTMLElement;

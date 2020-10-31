@@ -29,6 +29,9 @@ $scroll-button-padding: 20px;
 .experience:after {
   background-image: url("../assets/images/experience.webp");
 }
+.contact:after {
+  background-image: url("../assets/images/contact.webp");
+}
 
 .home-logo {
   display: flex;
@@ -62,11 +65,14 @@ $scroll-button-padding: 20px;
 
 .button {
   border-radius: 10px;
+  font-size: 23px;
   background-color: transparent;
   border: 3px solid white;
-  padding: 15px;
+  padding: 7px 15px;
   width: 100%;
-  @include dropShadow();
+  text-decoration: none;
+  text-align: center;
+  @include dropShadow(1);
 }
 
 .spacer-logo {
