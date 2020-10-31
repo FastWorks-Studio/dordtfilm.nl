@@ -87,3 +87,9 @@ p {
     filter: brightness(70%);
   }
 }
+
+$video-width-vw: 90;
+.video {
+  width: #{$video-width-vw}vw;
+  height: #{($video-width-vw * (9 / 16))}vw;
+}

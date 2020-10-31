@@ -7,14 +7,27 @@ $scroll-button-width: 42px;
 $scroll-button-height: 15px;
 $scroll-button-padding: 20px;
 
-.home:after {
-  background-image: url("../assets/images/home.jpg");
+.trailer {
+  display: none;
 }
-.about:after {
-  background-image: url("../assets/images/about.jpg");
+
+.home:after {
+  background-image: url("../assets/images/home.webp");
+}
+.about-1:after {
+  background-image: url("../assets/images/about.webp");
+}
+.trailer:after {
+  background-image: url("../assets/images/trailer.webp");
+}
+.about-2:after {
+  background-image: url("../assets/images/about-2.webp");
+}
+.about-3:after {
+  background-image: url("../assets/images/about-3.webp");
 }
 .experience:after {
-  background-image: url("../assets/images/experience.jpg");
+  background-image: url("../assets/images/experience.webp");
 }
 
 .home-logo {
@@ -24,10 +37,14 @@ $scroll-button-padding: 20px;
 }
 
 .bottom-bar {
+  position: fixed;
+  z-index: 420;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 61px;
+  bottom: 0;
 }
 
 .googletext {

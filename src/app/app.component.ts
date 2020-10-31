@@ -11,14 +11,14 @@ export class AppComponent {
   public buttonText: string = 'Koop nu kaartjes';
 
   public scrollDown(): void {
-    const introElement: HTMLElement = document.getElementsByClassName(
-      'intro'
-    )[0] as HTMLElement;
+    const pageElements: HTMLElement[] = (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
+      .filter(page => !!page.offsetParent);
+    const nextElement: HTMLElement = pageElements.filter(element => element.getBoundingClientRect().y > 0)[0];
     const wrapperElement: HTMLElement = document.getElementsByClassName(
-      'wrapper'
+      'body'
     )[0] as HTMLElement;
     wrapperElement.scroll({
-      top: introElement.offsetHeight,
+      top: nextElement.getBoundingClientRect().y + wrapperElement.scrollTop,
       left: window.scrollX,
       behavior: 'smooth',
     });

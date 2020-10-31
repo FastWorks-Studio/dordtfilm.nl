@@ -1,3 +1,18 @@
+<div class="bottom-bar">
+  <button
+    (click)="scrollDown()"
+    class="scrollDownButton"
+    type="button"
+    aria-hidden="true"
+  >
+    <img
+      class="scrollDownButton--image"
+      src="/assets/icons/arrow-down.svg"
+      alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is"
+    />
+  </button>
+</div>
+
 <section class="page home">
   <div class="page-content">
     <div class="home-logo">
@@ -8,28 +23,21 @@
       <div class="spacer-button"></div>
       <button class="button">{{ buttonText }}</button>
     </div>
-    <div class="bottom-bar">
-      <button
-        (click)="scrollDown()"
-        class="scrollDownButton"
-        type="button"
-        aria-hidden="true"
-      >
-        <img
-          class="scrollDownButton--image"
-          src="/assets/icons/arrow-down.svg"
-          alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is"
-        />
-      </button>
-    </div>
   </div>
 </section>
 
-<section class="page about">
+<section class="page about-1">
   <div class="page-content">
     <p>Deze film is met liefdevolle toewijding gemaakt om u de stad te laten ervaren als nooit tevoren. Zie de pracht van de stad en de Dordtse Biesbosch in alle vier de seizoenen en uit allerlei hoeken gefilmd. Bovendien zijn we te land, ter zee en in de lucht.</p>
     <p>Natuurlijk komt u van alles te weten over de geschiedenis van de stad en wat Dordrecht nu zo bijzonder maakt. Vergeet echter die slome, stoffige geschiedenislessen van vroeger; hier houden we het vlot en boeiend, afgewisseld met een paar <del>flauwe</del> uitstekende grapjes.</p>
     <p>Wat maakt de stad zo bijzonder? Wat maakt een Dordtenaar speciaal? Zijn de inwoners trots op hun stad? We praten hierover met Dordtenaren en andere experts. Samen proberen we te ontdekken wat de Dordtse identiteit kenmerkt en komen we tot soms verrassende ontdekkingen over de stad en haar inwoners.</p>
+  </div>
+</section>
+
+<section class="page trailer">
+  <div class="page-content">
+    <h3 class="header">Trailer</h3>
+    <iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/MrYbBcvdzIY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </section>
 
@@ -40,3 +48,21 @@
     <p>Deze film moet u absoluut gezien hebben als u zichzelf nog Schapenkop wilt durven noemen, óf als u als niet-Dordtenaar meer wilt weten over deze geweldige stad. Ervaar het zelf in Dordrecht door de jaren heen.</p>
   </div>
 </section>
+
+
+<section class="page about-2">
+  <div class="page-content">
+    <h3 class="header">Over de film</h3>
+    <p>Onze enthousiaste verteller <a href="https://www.coenkoopmans.nl/" target="_blank">Coen Knoopmans</a> neemt u vlot, gepassioneerd en soms met een knipoog mee door de hele geschiedenis. Althans, die van Dordrecht. Deze jongeman laat zich graag informeren door experts. Veel mensen zullen <a href="https://www.jaapbouman.nl/" target="_blank">Jaap Bouman</a> kennen als dé stadshistoricus van Dordrecht, hoewel hijzelf die titel weigert. Boswachter <a href="http://www.fotoneut.nl/" target="_blank">Jacques van der Neut</a> geeft een trotse rondleiding door de prachtige natuur van de Dordtse Biesbosch.
+      <a href="http://baskakes.nl/" target="_blank">Bans Kakes</a> verzorgt onder meer de regie, de montage en het camerawerk. Kevin van den Hoek verzorgt de visuele stijl in de vorm van het titelontwerp en de special effects.
+      </p>
+  </div>
+</section>
+
+<section class="page about-3">
+  <div class="page-content">
+    <p>Het script is gebaseerd op de kennis en liefde voor de stad van scriptadviseur Arend van der Perk. Hij is de opa van zowel Bas Kakes als Coen Koopmans. Door de jaren heen heeft Arend zijn passie voor zijn stad veelvuldig en bewonderenswaardig intens laten blijken. Zo raadt hij bijvoorbeeld af om te reizen naar verre landen, want “de Biesbosch is het mooiste dat er is”. Eind 2018 besloten Kakes en Koopmans dat ze hun volgende film op die passie zouden baseren. De makers hebben al jaren ervaring in het produceren van films en maken met deze titel hun debuut in het genre ‘documentaire’.
+    </p>
+  </div>
+</section>
+
