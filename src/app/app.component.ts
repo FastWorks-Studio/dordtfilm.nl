@@ -12,11 +12,10 @@ export class AppComponent implements OnInit {
   public buttonHref: string = 'https://www.facebook.com/dordtfilm';
   public arrowAlpha: number = 1;
 
-  constructor(
-  ) {}
-
   public ngOnInit(): void {
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
+    // setInterval(this.onWindowScroll.bind(this), 1000 / 60);
+    this.updateParallax();
   }
 
   public scrollDown(): void {
@@ -31,11 +30,12 @@ export class AppComponent implements OnInit {
   }
 
   public onWindowScroll(event: Event): void {
-      this.updateArrowAlpha(this.getActiveElements('page'));
-      // this.updateParallax(this.getActiveElements('page-background'));
+      this.updateArrowAlpha();
+      this.updateParallax();
   }
 
-  private updateArrowAlpha(pageElements: HTMLElement[]): void {
+  private updateArrowAlpha(): void {
+    const pageElements = this.getActiveElements('page');
     const last: HTMLElement = pageElements[pageElements.length - 1];
     const offset: number = last.getBoundingClientRect().y;
     const height: number = last.getBoundingClientRect().height;
@@ -43,19 +43,27 @@ export class AppComponent implements OnInit {
     this.arrowAlpha = alpha;
   }
 
-  private updateParallax(pageElements: HTMLElement[]): void {
-    pageElements.filter(this.isInViewport).forEach(element => {
+  private updateParallax(): void {
+    this.getActiveElements('page').filter(this.isInViewport).forEach(element => {
       const rect: DOMRect = element.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
-      // let background = element.child
-      element.style.filter = `blur(${offset * 10});`;
-      console.log(`translate(${offset * 1000}, 0)`);
+      const absOffset: number = Math.abs(offset);
+      const textBlur = absOffset * 3;
+      const textElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
+      if (textElement) { textElement.style.filter = `blur(${textBlur}px)` }
+      const imageElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
+      if (imageElement) { 
+        imageElement.style.transform = `translate(0px, ${offset * 50}px) scale(1.2)` 
+        if (textElement.className == 'page-logo') { return }
+        const imageBlur = Math.pow((1 - absOffset), 2) * 2;
+        imageElement.style.filter = `blur(${imageBlur}px)` 
+      }
     });
   }
 
   private isInViewport(element: HTMLElement): boolean {
     const rect: DOMRect = element.getBoundingClientRect();
-    return rect.y >= -rect.height && rect.y <= rect.height;
+    return rect.y >= -(rect.height * 1.1) && rect.y <= (rect.height * 1.1);
   }
 
   private clamped(value: number, range: { min: number, max: number }): number {
@@ -63,7 +71,7 @@ export class AppComponent implements OnInit {
   }
 
   private getActiveElements(id: string): HTMLElement[] {
-    return (Array.from(document.getElementsByClassName('page')) as HTMLElement[])
+    return (Array.from(document.getElementsByClassName(id)) as HTMLElement[])
       .filter(page => !!page.offsetParent);
   }
 }
