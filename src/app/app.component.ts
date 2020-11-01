@@ -12,9 +12,12 @@ export class AppComponent implements OnInit {
   public buttonHref: string = 'https://www.facebook.com/dordtfilm';
   public arrowAlpha: number = 1;
 
+  private doParallax: boolean = false;
+
   public ngOnInit(): void {
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
-    // setInterval(this.onWindowScroll.bind(this), 1000 / 60);
+    const isChrome = /chrome/i.test( navigator.userAgent );
+    this.doParallax = isChrome;
     this.updateParallax();
   }
 
@@ -44,13 +47,16 @@ export class AppComponent implements OnInit {
   }
 
   private updateParallax(): void {
+    if (this.doParallax === false) { return; }
     this.getActiveElements('page').filter(this.isInViewport).forEach(element => {
       const rect: DOMRect = element.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
       const absOffset: number = Math.abs(offset);
+
       const textBlur = absOffset * 3;
       const textElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
       if (textElement) { textElement.style.filter = `blur(${textBlur}px)` }
+
       const imageElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
       if (imageElement) { 
         imageElement.style.transform = `translate(0px, ${offset * 50}px) scale(1.2)` 
