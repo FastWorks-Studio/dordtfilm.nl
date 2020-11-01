@@ -53,19 +53,20 @@ export class AppComponent implements OnInit {
       const rect: DOMRect = element.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
       const absOffset: number = Math.abs(offset);
+      const parallaxIntensity: number = 200;
 
-      const textBlur = Math.min(1, absOffset * 5) * 3 + absOffset * 3;
+      const textBlur = Math.min(1, absOffset * 4) * 3 + absOffset * 3;
       const textElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
       if (textElement) { 
-        textElement.style.transform = `translate(0px, ${offset * 50}px) scale(${(offset * -0.05) + 1})` 
+        textElement.style.transform = `translate(0px, ${offset * parallaxIntensity}px) scale(${(offset * -0.05) + 1})` 
         textElement.style.filter = `blur(${textBlur}px)` 
       }
 
       const imageElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
       if (imageElement) { 
-        imageElement.style.transform = `translate(0px, ${offset * -50}px) scale(${1.2})` 
+        imageElement.style.transform = `translate(0px, ${offset * -parallaxIntensity}px) scale(${1.2})` 
         if (textElement.className == 'page-logo') { return }
-        const imageBlur = (1 - Math.min(1, absOffset * 5)) * 5
+        const imageBlur = (1 - Math.min(1, absOffset * 4)) * 5
         imageElement.style.filter = `blur(${imageBlur}px)` 
       }
     });
