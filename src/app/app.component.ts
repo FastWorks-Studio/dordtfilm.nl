@@ -57,14 +57,14 @@ export class AppComponent implements OnInit {
     this.pageElements.filter(this.isInViewport).forEach(page => {
       const rect: DOMRect = page.page.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
-      const absOffset: number = Math.abs(offset);
+      // const absOffset: number = Math.abs(offset);
       const parallaxIntensity: number = 300;
 
-      const textBlur = Math.min(1, absOffset * 4) * 3 + absOffset * 3;
-      if (page.text) {
-        page.text.style.transform = `translate3d(0px, ${offset * parallaxIntensity}px, 0px) scale(${(offset * -0.05) + 1})`
+      // const textBlur = Math.min(1, absOffset * 4) * 3 + absOffset * 3;
+      // if (page.text) {
+        // page.text.style.transform = `translate3d(0px, ${offset * parallaxIntensity}px, 0px) scale(${(offset * -0.05) + 1})`
         // textElement.style.filter = `blur(${textBlur}px)`
-      }
+      // }
 
       if (page.image) {
         page.image.style.transform = `translate3d(0px, ${offset * -parallaxIntensity}px, 0px) scale(${1.1})`
