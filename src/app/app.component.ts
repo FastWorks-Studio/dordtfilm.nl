@@ -1,10 +1,24 @@
 import { OnInit, Component } from '@angular/core';
+import { Scroll } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
+class PageElement {
+  page: HTMLElement
+  image: HTMLElement
+  text: HTMLElement
+
+  constructor(page: HTMLElement) {
+    this.page = page;
+    this.image = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
+    this.text = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
+  }
+}
+
 export class AppComponent implements OnInit {
   public title: string = 'Dordrecht';
   public subtitle: string = 'door de jaren heen';
@@ -14,11 +28,16 @@ export class AppComponent implements OnInit {
 
   private doParallax: boolean = false;
 
+  private pageElements: PageElement[] = [];
+
   public ngOnInit(): void {
+    // this.pageElements = this.getActiveElements('page').filter(this.isInViewport).map(page => { 
+    //   return new PageElement(page)
+    // }) as PageElement[];
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
-    const isChrome = /chrome/i.test( navigator.userAgent );
+    const isChrome = /chrome/i.test(navigator.userAgent);
     const isWindows = navigator.platform.indexOf('Win') > -1
-    this.doParallax = isChrome && !isWindows;
+    this.doParallax = false;//isChrome && !isWindows;
     this.updateParallax();
   }
 
@@ -34,40 +53,39 @@ export class AppComponent implements OnInit {
   }
 
   public onWindowScroll(event: Event): void {
-      this.updateArrowAlpha();
-      this.updateParallax();
+    this.updateArrowAlpha();
+    this.updateParallax();
   }
 
   private updateArrowAlpha(): void {
-    const pageElements = this.getActiveElements('page');
-    const last: HTMLElement = pageElements[pageElements.length - 1];
-    const offset: number = last.getBoundingClientRect().y;
-    const height: number = last.getBoundingClientRect().height;
+    const last: PageElement = this.pageElements[this.pageElements.length - 1];
+    if (!last) { return; }
+    const nextPage = last.page;
+    const offset: number = nextPage.getBoundingClientRect().y;
+    const height: number = nextPage.getBoundingClientRect().height;
     const alpha: number = Math.max(0, Math.min(150, offset - (height - 150)) / 150);
     this.arrowAlpha = alpha;
   }
 
   private updateParallax(): void {
     if (this.doParallax === false) { return; }
-    this.getActiveElements('page').filter(this.isInViewport).forEach(element => {
-      const rect: DOMRect = element.getBoundingClientRect();
+    this.pageElements.forEach(page => {
+      const rect: DOMRect = page.page.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
       const absOffset: number = Math.abs(offset);
-      const parallaxIntensity: number = 200;
+      const parallaxIntensity: number = 300;
 
       const textBlur = Math.min(1, absOffset * 4) * 3 + absOffset * 3;
-      const textElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
-      if (textElement) { 
-        textElement.style.transform = `translate(0px, ${offset * parallaxIntensity}px) scale(${(offset * -0.05) + 1})` 
-        textElement.style.filter = `blur(${textBlur}px)` 
+      if (page.text) {
+        page.text.style.transform = `translate3d(0px, ${offset * parallaxIntensity}px, 0px) scale(${(offset * -0.05) + 1})`
+        // textElement.style.filter = `blur(${textBlur}px)`
       }
 
-      const imageElement = (Array.from(element.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
-      if (imageElement) { 
-        imageElement.style.transform = `translate(0px, ${offset * -parallaxIntensity}px) scale(${1.2})` 
-        if (textElement.className == 'page-logo') { return }
-        const imageBlur = (1 - Math.min(1, absOffset * 4)) * 5
-        imageElement.style.filter = `blur(${imageBlur}px)` 
+      if (page.image) {
+        page.image.style.transform = `translate3d(0px, ${offset * -parallaxIntensity}px, 0px) scale(${1.1})`
+        // if (textElement.className == 'page-logo') { return }
+        // const imageBlur = (1 - Math.min(1, absOffset * 4)) * 5
+        // imageElement.style.filter = `blur(${imageBlur}px)`
       }
     });
   }
