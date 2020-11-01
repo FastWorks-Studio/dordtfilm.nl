@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   public buttonHref: string = 'https://www.facebook.com/dordtfilm';
   public arrowAlpha: number = 1;
 
-  private doParallax: boolean = true;
+  private doParallax: boolean = false;
 
   private pageElements: PageElement[] = [];
 
