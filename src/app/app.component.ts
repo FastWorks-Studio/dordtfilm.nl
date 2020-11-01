@@ -7,18 +7,6 @@ import { Scroll } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 
-class PageElement {
-  page: HTMLElement
-  image: HTMLElement
-  text: HTMLElement
-
-  constructor(page: HTMLElement) {
-    this.page = page;
-    this.image = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
-    this.text = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
-  }
-}
-
 export class AppComponent implements OnInit {
   public title: string = 'Dordrecht';
   public subtitle: string = 'door de jaren heen';
@@ -26,18 +14,15 @@ export class AppComponent implements OnInit {
   public buttonHref: string = 'https://www.facebook.com/dordtfilm';
   public arrowAlpha: number = 1;
 
-  private doParallax: boolean = false;
+  private doParallax: boolean = true;
 
   private pageElements: PageElement[] = [];
 
   public ngOnInit(): void {
-    // this.pageElements = this.getActiveElements('page').filter(this.isInViewport).map(page => { 
-    //   return new PageElement(page)
-    // }) as PageElement[];
+    this.pageElements = this.getActiveElements('page').map(page => { 
+      return new PageElement(page)
+    }) as PageElement[];
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
-    const isChrome = /chrome/i.test(navigator.userAgent);
-    const isWindows = navigator.platform.indexOf('Win') > -1
-    this.doParallax = false;//isChrome && !isWindows;
     this.updateParallax();
   }
 
@@ -69,7 +54,7 @@ export class AppComponent implements OnInit {
 
   private updateParallax(): void {
     if (this.doParallax === false) { return; }
-    this.pageElements.forEach(page => {
+    this.pageElements.filter(this.isInViewport).forEach(page => {
       const rect: DOMRect = page.page.getBoundingClientRect();
       const offset: number = this.clamped(rect.y / rect.height, { min: -1, max: 1 });
       const absOffset: number = Math.abs(offset);
@@ -90,8 +75,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  private isInViewport(element: HTMLElement): boolean {
-    const rect: DOMRect = element.getBoundingClientRect();
+  private isInViewport(element: PageElement): boolean {
+    const rect: DOMRect = element.page.getBoundingClientRect();
     return rect.y >= -(rect.height * 1.1) && rect.y <= (rect.height * 1.1);
   }
 
@@ -102,5 +87,17 @@ export class AppComponent implements OnInit {
   private getActiveElements(id: string): HTMLElement[] {
     return (Array.from(document.getElementsByClassName(id)) as HTMLElement[])
       .filter(page => !!page.offsetParent);
+  }
+}
+
+class PageElement {
+  page: HTMLElement
+  image: HTMLElement
+  text: HTMLElement
+
+  constructor(page: HTMLElement) {
+    this.page = page;
+    this.image = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-background');
+    this.text = (Array.from(page.childNodes) as HTMLElement[]).find(e => e.className === 'page-content' || e.className === 'page-logo');
   }
 }

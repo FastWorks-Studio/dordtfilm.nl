@@ -13,10 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 html,
 body {
   overflow-x: hidden;
-  overflow-y: scroll;
   max-width: 100%;
   background-color: black;
 }
