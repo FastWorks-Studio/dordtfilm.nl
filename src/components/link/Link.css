@@ -1,0 +1,19 @@
+a {
+  color: #f2f2ea;
+  background-color: #ffffff22;
+  font-size: calc(1.3vmin + 1.3vmax);
+  font-weight: 600;
+  text-decoration: none;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+
+@media (min-aspect-ratio: 3/2) {
+  a {
+    font-size: calc(1vmin + 1vmax);
+  }
+}
+
+a:hover {
+  background-color: #ffffff44;
+}

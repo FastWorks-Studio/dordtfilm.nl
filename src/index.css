@@ -1,0 +1,19 @@
+@import "./assets/fonts/fonts.css";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto Slab", -apple-system, sans-serif;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+html {
+  overflow-y: auto;
+  background-color: black;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

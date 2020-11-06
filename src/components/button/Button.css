@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  font-size: calc(1.4vmin + 1.4vmax);
+  font-family: "Isocteur";
+  color: #f2f2ea;
+  border: 3px solid #f2f2ea;
+  outline: none;
+  background-color: transparent;
+  font-weight: 600;
+  padding-top: calc(calc(1.3vmin + 1.3vmax) * 0.9);
+  padding-bottom: calc(calc(1.3vmin + 1.3vmax) * 0.8);
+  padding-left: calc(calc(1.3vmin + 1.3vmax) * 2);
+  padding-right: calc(calc(1.3vmin + 1.3vmax) * 2);
+  width: 100%;
+  max-width: calc(calc(1.3vmin + 1.3vmax) * 25);
+  text-decoration: none;
+  text-align: center;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+@media (max-aspect-ratio: 1 / 1) {
+  .button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.button:hover {
+  background-color: #ffffff44;
+  cursor: pointer;
+}

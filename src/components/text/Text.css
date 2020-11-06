@@ -1,0 +1,11 @@
+p {
+  font-size: calc(1.3vmin + 1.3vmax);
+  padding-bottom: 1em;
+}
+
+@media (min-aspect-ratio: 3/2) {
+  p {
+    font-size: calc(1vmin + 1vmax);
+    padding-right: 20vw;
+  }
+}

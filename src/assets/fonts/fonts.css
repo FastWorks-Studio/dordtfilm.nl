@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "Black Quality";
+  src: local("Black Quality"),
+    url(./blackquality/BlackQuality.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Isocteur";
+  src: local("Isocteur"), url("./isocteur/isocteur.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Slab";
+  src: local("Roboto Slab"),
+    url(./robotoslab/RobotoSlab-Regular.ttf) format("truetype");
+}

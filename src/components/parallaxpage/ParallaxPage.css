@@ -1,0 +1,41 @@
+.parallax-page {
+  color: #f2f2ea;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.parallax-page-background-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+}
+
+.parallax-page-background-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+
+.parallax-page-background-dim {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+  background-color: black;
+  opacity: 0.3;
+}
+
+.parallax-page-content-container {
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
