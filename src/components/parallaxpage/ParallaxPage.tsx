@@ -3,6 +3,7 @@ import './ParallaxPage.css';
 import { setInterval } from 'timers';
 import * as Utility from '../../utility/module';
 import * as UI from '../module';
+import * as Models from '../../models/module';
 
 type Props = { 
   image?: string
@@ -54,10 +55,12 @@ export class ParallaxPage extends React.Component<Props> {
   componentDidMount() {
     if (this.props.focalDim !== undefined) { this.focalDim = this.props.focalDim; }
     this.doParallax = !!this.page.current?.offsetParent;
-    if (this.doParallax === false) { return; }
-    setInterval(this.updateFocus.bind(this), this.focusUpdateIntervalMs);
-    window.addEventListener("scroll", this.updateParallax.bind(this));
-    this.updateParallax();
+    if (this.doParallax === true) { 
+      setInterval(this.updateFocus.bind(this), this.focusUpdateIntervalMs);
+      window.addEventListener("scroll", this.updateParallax.bind(this));
+      this.updateParallax();
+    }
+    this.animateIn();
   }
 
   private getOffsetInViewPort(): number {
@@ -190,6 +193,17 @@ export class ParallaxPage extends React.Component<Props> {
     if (background === undefined) { return; }
     background.style.transform = ``;
     this.doParallax = false
+  }
+
+  private animateIn() {
+    let background = this.background.current as HTMLElement;
+    if (background === undefined) { return; }
+    // Utility.Animator.animate(background, { 
+    //   from: Models.Transform.identity,
+    //   to: Models.Transform.identity,
+    //   duration: 1,
+    //   curve: Models.AnimationCurve.linear
+    // });
   }
 }
 
