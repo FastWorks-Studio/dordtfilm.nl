@@ -14,12 +14,14 @@
   animation: bounce 4s infinite;
   animation-timing-function: ease;
   z-index: 420;
+  user-select: none;
 }
 
 .down-arrow-image {
   height: 100%;
   width: 100%;
   background-position: center;
+  user-select: none;
 }
 
 @keyframes bounce {

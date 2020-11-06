@@ -16,7 +16,7 @@ export class App extends React.Component<Props> {
   render() {
     return (
       <>
-        <UI.ParallaxPage video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#DC9672' focalDim={0}>
+        <UI.ParallaxPage image='home-preload.jpg' video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#000000' focalDim={0}>
           <UI.Logo />
           <UI.Spacer size='1vh' />
           <UI.Button title="Like ons op facebook" action="https://www.facebook.com/dordtfilm" center={true}/>
@@ -49,7 +49,7 @@ export class App extends React.Component<Props> {
           <UI.Spacer size="5vh" />
           <UI.Button title="Like ons op facebook" action="https://www.facebook.com/dordtfilm" />
         </UI.ParallaxPage>
-        <UI.ParallaxPage video='contact.mp4' blurContent={this.blurContent} blurBackground={false} loadingColor='#ADC4CC'>
+        <UI.ParallaxPage image='contact-preload.jpg' video='contact.mp4' blurContent={this.blurContent} blurBackground={false}>
           <UI.Header text="Contact" />
           <UI.Text>Wilt u contact opnemen met de makers?</UI.Text>
           <UI.Spacer size="5vh" />
