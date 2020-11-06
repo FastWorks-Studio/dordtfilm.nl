@@ -5,7 +5,7 @@ p {
 
 @media (min-aspect-ratio: 3/2) {
   p {
-    font-size: calc(1vmin + 1vmax);
+    font-size: calc(1vmin + 1vmax) em;
     padding-right: 20vw;
   }
 }
