@@ -10,7 +10,7 @@ export class App extends React.Component<Props> {
   private downArrow?: HTMLElement;
   private downArrowHidden: boolean = false;
 
-  private blurContent = (Utility.ClientInfo.isMobile === false) && Utility.ClientInfo.resolutionClass !== Utility.ResolutionClass.high;
+  private blurContent = false;
   private blurLogo = (window.innerHeight * window.innerWidth) <= 1000000;
 
   render() {
