@@ -1,3 +1,5 @@
+@import "../../shared/animations.css";
+
 .down-arrow {
   outline: none;
   border: none;
@@ -11,10 +13,9 @@
   left: 0;
   right: 0;
 
-  animation: bounce 4s infinite;
-  animation-timing-function: ease;
+  animation: fadeInZoomIn 1s, bounce 4s infinite;
+  animation-timing-function: ease-out;
   z-index: 420;
-  user-select: none;
 }
 
 .down-arrow-image {
@@ -22,6 +23,7 @@
   width: 100%;
   background-position: center;
   user-select: none;
+  pointer-events: none;
 }
 
 @keyframes bounce {

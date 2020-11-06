@@ -1,3 +1,5 @@
+@import "../../shared/animations.css";
+
 .logo-title {
   font-family: "Black Quality";
   font-size: 19vw;
@@ -9,6 +11,8 @@
   padding-bottom: 0;
   color: #f2f2ea;
   text-shadow: 1vw 0.7vw rgb(45, 44, 42);
+  animation: fadeInZoomIn 1s;
+  animation-timing-function: ease-out;
 }
 
 .logo-subtitle {
@@ -18,6 +22,28 @@
   padding: 0;
   padding-bottom: 5vh;
   color: #f2f2ea;
+  animation: fadeInZoomIn 1s;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    transform: translateX(10vw);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    transform: translateX(-10vw);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (min-aspect-ratio: 3/2) {

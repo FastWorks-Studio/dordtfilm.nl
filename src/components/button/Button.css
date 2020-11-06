@@ -1,3 +1,5 @@
+@import "../../shared/animations.css";
+
 .container {
   display: flex;
   align-items: center;
@@ -19,13 +21,9 @@
   max-width: calc(calc(1.3vmin + 1.3vmax) * 25);
   text-decoration: none;
   text-align: center;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none;
+  animation: fadeIn 1s;
+  animation-timing-function: ease-out;
 }
 
 @media (max-aspect-ratio: 1 / 1) {
@@ -38,4 +36,17 @@
 .button:hover {
   background-color: #ffffff44;
   cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+    border: 10px solid #f2f2ea00;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    border: 3px solid #f2f2ea;
+  }
 }
