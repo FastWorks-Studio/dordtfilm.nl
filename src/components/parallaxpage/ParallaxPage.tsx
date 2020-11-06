@@ -25,7 +25,7 @@ export class ParallaxPage extends React.Component<Props> {
   private contentOpacity: number = 69;
   private dimOpacity: number = 69;
 
-  private focalArea: number = 0.15;
+  private focalArea: number = 0.1;
   private backgroundBlurIntensity: number = 1;
   private contentBlurIntensity: number = 2;
   private focalTransitionSize: number = 0.3;
