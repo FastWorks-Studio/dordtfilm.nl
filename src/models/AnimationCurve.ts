@@ -1,5 +1,3 @@
-import { assert } from "console";
-
 enum AnimationCurveType {
     linear,
     ease,
@@ -26,6 +24,14 @@ export class AnimationCurve {
         return new AnimationCurve(AnimationCurveType.ease);
     }
 
+    static get spring(): AnimationCurve {
+        return new AnimationCurve(AnimationCurveType.custom, function(x: number) { 
+            const a = 0.15;
+            const w = 19.4;
+            return -(Math.pow(Math.E, (-x / a)) * Math.cos(x * w)) + 1;
+        });
+    }
+
     static custom(formula: Formula): AnimationCurve {
         return new AnimationCurve(AnimationCurveType.custom, formula)
     }
@@ -38,7 +44,7 @@ export class AnimationCurve {
                 console.log(`ease animation not implemented yet`);
                 return at;
             case AnimationCurveType.custom:
-                assert(this.formula, 'formula should be set when AnimationCurveType is .custom')
+                console.assert(this.formula, 'formula should be set when AnimationCurveType is .custom')
                 if (this.formula === undefined || this.formula === null) { return at; }
                 return this.formula(at);
             default:

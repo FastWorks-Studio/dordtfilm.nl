@@ -1,6 +1,20 @@
-export abstract class Transformation { }
+export enum TransformationType {
+    translation,
+    opacity,
+    scale,
+    rotation
+}
 
-export class Translation implements Transformation {
+export interface Transformation<Value> {
+    type: TransformationType
+    value: Value
+ }
+
+export class Translation implements Transformation<{x: number, y: number}> {
+
+    type: TransformationType = TransformationType.translation;
+    get value() { return { x: this.x, y: this.y } }
+
     x: number
     y: number
 
@@ -22,11 +36,14 @@ export class Translation implements Transformation {
     }
 }
 
-export class Scale implements Transformation {
-    amount: number;
+export class Scale implements Transformation<number> {
 
-    constructor(amount: number) {
-        this.amount = amount
+    type: TransformationType = TransformationType.scale;
+
+    value: number;
+
+    constructor(value: number) {
+        this.value = value;
     }
 
     static amount(amount: number): Scale {
@@ -34,14 +51,32 @@ export class Scale implements Transformation {
     }
 }
 
-export class Rotation implements Transformation {
-    amount: number;
+export class Rotation implements Transformation<number> {
 
-    constructor(amount: number) {
-        this.amount = amount
+    type: TransformationType = TransformationType.rotation;
+
+    value: number;
+
+    constructor(value: number) {
+        this.value = value
     }
 
-    static amount(amount: number): Rotation {
-        return new Rotation(amount);
+    static amount(value: number): Rotation {
+        return new Rotation(value);
+    }
+}
+
+export class Opacity implements Transformation<number> {
+
+    type: TransformationType = TransformationType.opacity;
+
+    value: number;
+
+    constructor(value: number) {
+        this.value = value
+    }
+
+    static amount(value: number): Opacity {
+        return new Opacity(value);
     }
 }

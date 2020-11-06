@@ -1,9 +1,9 @@
-import Transform from './Transform';
-import AnimationCurve from './AnimationCurve';
+import * as Models from './module';
 
 export interface Animation {
-    from: Transform
-    to: Transform
+    from?: Models.Transform
+    to?: Models.Transform
     duration: number
-    curve?: AnimationCurve
+    delay?: number
+    curve?: Models.AnimationCurve
 }

@@ -190,20 +190,23 @@ export class ParallaxPage extends React.Component<Props> {
   
   private disableParallax() {
     let background = this.background.current as HTMLElement;
-    if (background === undefined) { return; }
+    if (background === undefined || background === null) { return; }
     background.style.transform = ``;
     this.doParallax = false
   }
 
   private animateIn() {
     let background = this.background.current as HTMLElement;
-    if (background === undefined) { return; }
-    // Utility.Animator.animate(background, { 
-    //   from: Models.Transform.identity,
-    //   to: Models.Transform.identity,
-    //   duration: 1,
-    //   curve: Models.AnimationCurve.linear
-    // });
+    if (background === undefined || background === null) { return; }
+    Utility.Animator.animate(background, {
+      from: Models.Transform.identity
+        .opacity({ amount: 0 })
+        .scaled({ amount: 3 })
+        .rotated({ amount: 90 })
+        .translated({ x: 500, y: 200 }),
+      duration: 1,
+      curve: Models.AnimationCurve.spring
+    });
   }
 }
 

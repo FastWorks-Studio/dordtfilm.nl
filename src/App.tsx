@@ -71,7 +71,7 @@ export class App extends React.Component<Props> {
     document.addEventListener("scroll", function() {
       if (context.downArrowHidden) { return; }
       const alpha = Math.min(1, Math.max(0, 1 - (window.scrollY / (window.innerHeight * 0.1))));
-      if (context.downArrow === undefined) { return; }
+      if (context.downArrow === undefined || context.downArrow === null) { return; }
       context.downArrow.style.opacity = `${alpha}`
       if (alpha === 0) { context.downArrowHidden = true; }
     });

@@ -1,4 +1,6 @@
 export { Transform } from './Transform';
-export { Transformation, Translation, Scale, Rotation } from './Transformation';
+export type { TransformProperties } from './TransformProperties';
+export { Translation, Scale, Rotation, Opacity } from './Transformation';
+export type { Transformation, TransformationType } from './Transformation';
 export { AnimationCurve } from './AnimationCurve';
 export type { Animation } from './Animation';
