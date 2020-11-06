@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
   public onWindowScroll(event: Event): void {
     this.updateArrowAlpha();
-    this.updateParallax();
+    // this.updateParallax();
   }
 
   private updateArrowAlpha(): void {
