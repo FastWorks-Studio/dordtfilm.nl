@@ -45,7 +45,7 @@ export class SocialMediaButton extends React.Component<Props> {
     Utility.Animator.animate(this.button.current, {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .translated({ x: -100 }),
+        .translated({ x: -30 }),
       duration: 2,
       delay: args?.delay,
       curve: Models.AnimationCurve.spring()
@@ -54,8 +54,8 @@ export class SocialMediaButton extends React.Component<Props> {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .translated({ x: -10 })
-        .rotated({ amount: -40 }),
-      duration: 2,
+        .rotated({ amount: -15 }),
+      duration: 1.5,
       delay: args?.delay,
       curve: Models.AnimationCurve.spring()
     })
