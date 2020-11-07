@@ -1,4 +1,3 @@
-import { cleanup } from '@testing-library/react';
 import * as Model from '../../models/module';
 import * as Utility from '../../utility/module';
 
@@ -14,9 +13,11 @@ export class Animator {
         this.animation = animation;
         this.startProperties = animation.from?.properties || Model.Transform.identity.properties;
         this.endProperties = animation.to?.properties || Model.Transform.identity.properties;
+        this.startTime = Date.now() + ((animation.delay || 0) * 1000);
+        this.previousUpdate = Date.now() + ((animation.delay || 0) * 1000);
         if (Utility.exists(animation.delay)) {
             this.renderState(0);
-            setInterval(this.renderNextFrame.bind(this), ((animation.delay || 0) * 1000))
+            setTimeout(this.renderNextFrame.bind(this), ((animation.delay || 0) * 1000))
         } else {
             this.renderNextFrame()
         }
@@ -27,11 +28,12 @@ export class Animator {
     private endProperties: Model.TransformProperties;
     private animation: Model.Animation;
 
-    private previousUpdate: number = Date.now();
-    private startTime: number = Date.now();
+    private previousUpdate: number
+    private startTime: number
 
     private renderNextFrame() {
-        const progress = (this.previousUpdate - this.startTime) / this.animation.duration;
+        const progress = (this.previousUpdate - this.startTime) / (this.animation.duration * 1000);
+        this.previousUpdate = Date.now();
         this.renderState(progress);
         if (progress < 1) { 
             requestAnimationFrame(this.renderNextFrame.bind(this)); 
