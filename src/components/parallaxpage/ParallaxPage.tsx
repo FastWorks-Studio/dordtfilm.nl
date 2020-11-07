@@ -19,7 +19,8 @@ type Props = {
 export class ParallaxPage extends React.Component<Props> {
 
   private page: React.RefObject<HTMLDivElement> = React.createRef();
-  private background: React.RefObject<HTMLDivElement> = React.createRef();
+  private backgroundContainer: React.RefObject<HTMLDivElement> = React.createRef();
+  private backgroundEntryContainer: React.RefObject<HTMLDivElement> = React.createRef();
   private backgroundImage: React.RefObject<HTMLDivElement> = React.createRef();
   private dim: React.RefObject<HTMLDivElement> = React.createRef();
   private content: React.RefObject<HTMLDivElement> = React.createRef();
@@ -45,9 +46,11 @@ export class ParallaxPage extends React.Component<Props> {
   render() {
     return (
       <div className="parallax-page" ref={this.page}>
-        <div className='parallax-page-background-container' ref={this.background} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
-          <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
-          {this.props.video && (<UI.Player video={`${this.props.video}`} />)}
+        <div className = "parallax-page-background-container-entry" ref={this.backgroundEntryContainer}>
+          <div className='parallax-page-background-container' ref={this.backgroundContainer} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
+            <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
+            {this.props.video && (<UI.Player video={`${this.props.video}`} />)}
+          </div>
         </div>
         <div className="parallax-page-background-dim" ref={this.dim}/>
         <div className="parallax-page-content-container" ref={this.content}>
@@ -82,9 +85,10 @@ export class ParallaxPage extends React.Component<Props> {
       backgroundImage.style.backgroundImage = `url("${imageUrl}")`;
       preloaderImg = null;
       if (context.props.animateEntry || false) {
-        Utility.Animator.animate(this.background.current, {
+        Utility.Animator.animate(this.backgroundEntryContainer.current, {
           from: Models.Transform.identity
             .opacity({ amount: 0 })
+            .rotated({ amount: 10 })
             .blurred({ amount: 2 })
             .scaled({ amount: 1.5 }),
           duration: 7,
@@ -138,7 +142,7 @@ export class ParallaxPage extends React.Component<Props> {
   }
 
   private updateBackgroundBlurRadius(offset: number) {
-    let background = this.background.current as HTMLElement;
+    let background = this.backgroundContainer.current as HTMLElement;
     if (background === undefined) { return; }
     const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 0.3 * this.backgroundBlurIntensity;
     if (Math.abs(backgroundBlurRadius - this.backgroundBlurRadius) < 0.1) { return; }
@@ -172,7 +176,7 @@ export class ParallaxPage extends React.Component<Props> {
   }
 
   private updateParallaxOffset(offset: number) {
-    const background = this.background.current as HTMLElement;
+    const background = this.backgroundContainer.current as HTMLElement;
     if (background === undefined) { return; }
     const parallaxIntensity: number = window.innerHeight * this.parallaxIntensity;
     const targetOffset = offset * -parallaxIntensity;
@@ -224,7 +228,7 @@ export class ParallaxPage extends React.Component<Props> {
     this.enableSlowMode = !this.enableSlowMode;
     this.consecutiveModeSwitchUpdates = 0;
     if (this.enableSlowMode) {
-      let background = this.background.current as HTMLElement;
+      let background = this.backgroundContainer.current as HTMLElement;
       if (background === undefined || background === null) { return; }
       background.style.transform = ``;
       this.doParallax = false

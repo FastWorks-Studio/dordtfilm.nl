@@ -4,18 +4,18 @@ $linkBackgroundHover: #f2f2ea44;
 
 @keyframes float {
   0% {
-    opacity: 0.1;
-    transform: translateY(-30px);
-    filter: blur(0.5vmin);
-  }
-  50% {
     opacity: 1;
     transform: translateY(0px);
     filter: blur(0vmin);
   }
-  100% {
+  50% {
     opacity: 0.1;
     transform: translateY(-30px);
     filter: blur(0.5vmin);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+    filter: blur(0vmin);
   }
 }

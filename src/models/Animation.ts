@@ -6,4 +6,5 @@ export interface Animation {
     duration: number
     delay?: number
     curve?: Models.AnimationCurve
+    completion?: () => void
 }

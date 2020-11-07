@@ -16,7 +16,8 @@
   background-position: center;
 }
 
-.parallax-page-background-container {
+.parallax-page-background-container,
+.parallax-page-background-container-entry {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -39,6 +39,7 @@ export class Animator {
             requestAnimationFrame(this.renderNextFrame.bind(this)); 
         } else {
             this.element = null;
+            if (this.animation.completion) { this.animation.completion(); }
         }
     }
 
