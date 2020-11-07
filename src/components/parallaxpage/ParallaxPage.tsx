@@ -47,7 +47,7 @@ export class ParallaxPage extends React.Component<Props> {
       <div className="parallax-page" ref={this.page}>
         <div className='parallax-page-background-container' ref={this.background} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
           <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
-          {this.props.video && (<UI.Player video={`${this.props.video}`} onWillLoad={this.willLoadVideo.bind(this)} onDidLoad={this.didLoadVideo.bind(this)}/>)}
+          {this.props.video && (<UI.Player video={`${this.props.video}`} />)}
         </div>
         <div className="parallax-page-background-dim" ref={this.dim}/>
         <div className="parallax-page-content-container" ref={this.content}>
@@ -66,14 +66,6 @@ export class ParallaxPage extends React.Component<Props> {
       this.updateParallax();
     }
     this.loadBackgroundImage(this.props.image);
-  }
-
-  private willLoadVideo(element: HTMLVideoElement) {
-    element.style.opacity = `0`;
-  }
-
-  private didLoadVideo(element: HTMLVideoElement) {
-    element.style.opacity = `1`;
   }
 
   private loadBackgroundImage(url?: string) {
@@ -133,7 +125,7 @@ export class ParallaxPage extends React.Component<Props> {
 
   private updateContentBlurRadius(offset: number) {
     const content = this.content.current as HTMLElement;
-    if (content === undefined || !(this.props.blurContent !== false)) { return; }
+    if (content === undefined || (this.props.blurContent !== true)) { return; }
     const contentBlurRadius = offset * 20 * this.contentBlurIntensity;
     if (Math.abs(contentBlurRadius - this.contentBlurRadius) < 0.1) { return; }
     this.contentBlurRadius = contentBlurRadius;
