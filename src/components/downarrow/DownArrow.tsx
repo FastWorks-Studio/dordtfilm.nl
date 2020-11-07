@@ -15,7 +15,9 @@ export class DownArrow extends React.Component<Props> {
   render() {
     return (<>
       <button ref={this.button} className="down-arrow" onClick={this.didTap.bind(this)} aria-hidden="true" style={{cursor: (this.props.action === undefined) ? `` : `pointer`}}>
-        <img ref={this.img} className="down-arrow-image" src="./icons/arrow-down.svg" alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is" />
+        <div className="down-arrow-container ">
+          <img ref={this.img} className="down-arrow-image" src="./icons/arrow-down.svg" alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is" />
+        </div>
       </button>
     </>)
   }

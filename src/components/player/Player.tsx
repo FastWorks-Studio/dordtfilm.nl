@@ -1,11 +1,9 @@
 import React from 'react';
-import './Player.css';
+import './Player.scss';
 import * as UI from '../module';
 
 type Props = { 
     video: string
-    onWillLoad?: (element: HTMLVideoElement) => void
-    onDidLoad?: (element: HTMLVideoElement) => void
 }
 export class Player extends React.Component<Props> {
 
@@ -19,7 +17,16 @@ export class Player extends React.Component<Props> {
     return (
         <UI.FillContainer ref={this.container}>
           <div className="player-container" ref={this.div}>
-            <video className="player-video" ref={this.player} src={`/video/${this.props.video}`} autoPlay={true} muted={true} loop={true} playsInline onPlay={this.onPlay.bind(this)} aria-hidden="true"/>
+            <video 
+              className="player-video" 
+              ref={this.player} 
+              src={`/video/${this.props.video}`} 
+              muted={true} 
+              loop={true}
+              autoPlay={true}
+              playsInline 
+              onPlay={this.onPlay.bind(this)} 
+              aria-hidden="true" />
           </div>
         </UI.FillContainer>
     );
@@ -28,22 +35,14 @@ export class Player extends React.Component<Props> {
   componentDidMount() {
     window.addEventListener('resize', this.updatePlayerSize.bind(this));
     const videoElement = this.player.current;
-    if (videoElement === null || videoElement === undefined) { return; }
-    const onDidLoad = this.props.onDidLoad;
-    if (this.props.onWillLoad !== undefined && this.props.onWillLoad !== null) { 
-      this.props.onWillLoad(videoElement); 
-    }
-    if (onDidLoad === undefined || onDidLoad === null) { return; }
-    videoElement.addEventListener('loadeddata', (e) => {
-      if(videoElement.readyState >= 3){
-          onDidLoad(videoElement);
-      }
-   });
+    if (videoElement === undefined || videoElement === null) { return; }
+    videoElement.style.opacity = `0`;
   }
 
   private onPlay() {
     const videoElement = this.player.current;
     if (videoElement === undefined || videoElement === null) { return; }
+    videoElement.style.opacity = `1`;
     this.videoSize = { width: videoElement.videoWidth, height: videoElement.videoHeight };
     this.updatePlayerSize()
   }

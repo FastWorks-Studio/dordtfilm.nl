@@ -3,8 +3,8 @@
 .down-arrow {
   outline: none;
   border: none;
-  width: 20vmin;
-  padding: 5vmin 0px;
+  width: 16vmin;
+  padding: 4vmin 0px;
 
   position: fixed;
   margin-left: auto;
@@ -16,16 +16,16 @@
   z-index: 420;
 }
 
+.down-arrow-container {
+  animation: float 3s infinite;
+  height: 100%;
+  width: 100%;
+}
+
 .down-arrow-image {
   height: 100%;
   width: 100%;
   background-position: center;
   user-select: none;
   pointer-events: none;
-  fill: orange;
-}
-
-.down-arrow-text {
-  color: $primaryText;
-  font-family: "Isocteur";
 }
