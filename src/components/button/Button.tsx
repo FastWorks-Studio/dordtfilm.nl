@@ -1,5 +1,7 @@
 import React from 'react';
 import './Button.css';
+import * as Utility from '../../utility/module';
+import * as Models from '../../models/module';
 
 type Props = {
   title: string
@@ -9,10 +11,12 @@ type Props = {
 
 export class Button extends React.Component<Props> {
 
+  div: React.RefObject<HTMLDivElement> = React.createRef();
+
   render() {
     return (
       <>
-      <div className="container" style={{justifyContent: this.justifyContent()}}>
+      <div ref={this.div} className="container" style={{justifyContent: this.justifyContent()}}>
         <button className='button' onClick={this.didTapCallToAction.bind(this)}>{this.props.title}</button>
       </div>
       </>
@@ -34,6 +38,22 @@ export class Button extends React.Component<Props> {
     } else {
       return 'start'
     }
+  }
+
+  prepareForAnimation() {
+    const div = this.div?.current;
+    if (div !== null && div !== undefined) { div.style.opacity = `0`; }
+  }
+
+  animateIn(args?: { delay?: number }) {
+    Utility.Animator.animate(this.div.current, { 
+      from: Models.Transform.identity
+        .opacity({ amount: 0 })
+        .translated({ y: 10 }),
+        delay: args?.delay,
+      duration: 4,
+      curve: Models.AnimationCurve.spring()
+    });
   }
 }
 

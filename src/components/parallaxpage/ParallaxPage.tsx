@@ -12,12 +12,15 @@ type Props = {
   blurContent?: boolean
   loadingColor?: string
   focalDim?: number
+  animateEntry?: boolean
+  onDidLoadBackground?: (element: UI.ParallaxPage) => void
 }
 
 export class ParallaxPage extends React.Component<Props> {
 
   private page: React.RefObject<HTMLDivElement> = React.createRef();
   private background: React.RefObject<HTMLDivElement> = React.createRef();
+  private backgroundImage: React.RefObject<HTMLDivElement> = React.createRef();
   private dim: React.RefObject<HTMLDivElement> = React.createRef();
   private content: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -35,14 +38,16 @@ export class ParallaxPage extends React.Component<Props> {
   private parallaxIntensity: number = 0.5;
   private parallaxOffset: Utility.InertialNumber = new Utility.InertialNumber({ acceleration: 4, inertia: 0.7 });
 
+  private initialBackgroundScale: number = 1.1;
+
   private focusUpdateIntervalMs: number = 1000 / 24
 
   render() {
     return (
       <div className="parallax-page" ref={this.page}>
         <div className='parallax-page-background-container' ref={this.background} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
-          {this.props.image && (<div className="parallax-page-background-image" aria-hidden="true" style={{backgroundImage: `url("./images/${this.props.image}")`}}/>)}
-          {this.props.video && (<UI.Player video={`${this.props.video}`} />)}
+          <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
+          {this.props.video && (<UI.Player video={`${this.props.video}`} onWillLoad={this.willLoadVideo.bind(this)} onDidLoad={this.didLoadVideo.bind(this)}/>)}
         </div>
         <div className="parallax-page-background-dim" ref={this.dim}/>
         <div className="parallax-page-content-container" ref={this.content}>
@@ -60,7 +65,69 @@ export class ParallaxPage extends React.Component<Props> {
       window.addEventListener("scroll", this.updateParallax.bind(this));
       this.updateParallax();
     }
-    this.animateIn();
+    this.loadBackgroundImage(this.props.image);
+  }
+
+  private willLoadVideo(element: HTMLVideoElement) {
+    if (this.props.animateEntry || false) { element.style.opacity = `0`; }
+  }
+
+  private didLoadVideo(element: HTMLVideoElement) {
+    if (this.props.onDidLoadBackground !== null && this.props.onDidLoadBackground !== undefined) {
+      this.props.onDidLoadBackground(this);
+    }
+    if (this.props.animateEntry || false) {
+      Utility.Animator.animate(element, { 
+        from: Models.Transform.identity
+          .scaled({ amount: this.initialBackgroundScale })
+          .opacity({ amount: 1 }),
+        duration: 2,
+        curve: Models.AnimationCurve.easeOut
+      })
+      Utility.Animator.animate(this.backgroundImage.current, { 
+        from: Models.Transform.identity
+          .scaled({ amount: this.initialBackgroundScale }),
+        to: Models.Transform.identity
+          .scaled({ amount: 1 }),
+        duration: 2,
+        curve: Models.AnimationCurve.easeOut
+      });
+    }
+  }
+
+  private loadBackgroundImage(url?: string) {
+    if (url === undefined || url === null) { return; }
+    const imageUrl = `./images/${this.props.image}`;
+    let preloaderImg: HTMLImageElement | null = document.createElement("img");
+    preloaderImg.style.opacity = `0`;
+    preloaderImg.src = imageUrl;
+
+    const context = this
+    preloaderImg.addEventListener('load', (event) => {
+      if (context.props.onDidLoadBackground !== null && context.props.onDidLoadBackground !== undefined && Utility.isVoid(context.props.video)) {
+        context.props.onDidLoadBackground(context);
+      }
+      const backgroundImage = context.backgroundImage.current;
+      if (backgroundImage === undefined || backgroundImage === null) { return; }
+      backgroundImage.style.backgroundImage = `url("${imageUrl}")`;
+      preloaderImg = null;
+      if (context.props.animateEntry || false) {
+        Utility.Animator.animate(this.background.current, {
+          from: Models.Transform.identity
+          .opacity({ amount: 0 }),
+          duration: 2,
+          curve: Models.AnimationCurve.easeOut
+        });
+        Utility.Animator.animate(backgroundImage, { 
+          from: Models.Transform.identity
+            .scaled({ amount: this.initialBackgroundScale }),
+          to: Models.Transform.identity
+            .scaled({ amount: !!this.props.video ? this.initialBackgroundScale : 1 }),
+          duration: 2,
+          curve: Models.AnimationCurve.easeOut
+        });
+      }
+    });
   }
 
   private getOffsetInViewPort(): number {
@@ -193,20 +260,6 @@ export class ParallaxPage extends React.Component<Props> {
     if (background === undefined || background === null) { return; }
     background.style.transform = ``;
     this.doParallax = false
-  }
-
-  private animateIn() {
-    let background = this.background.current as HTMLElement;
-    if (background === undefined || background === null) { return; }
-    Utility.Animator.animate(background, {
-      from: Models.Transform.identity
-        .opacity({ amount: 0 })
-        .scaled({ amount: 3 })
-        .rotated({ amount: 90 })
-        .translated({ x: 500, y: 200 }),
-      duration: 1,
-      curve: Models.AnimationCurve.spring
-    });
   }
 }
 

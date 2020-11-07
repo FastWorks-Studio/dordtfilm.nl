@@ -1,6 +1,10 @@
+import * as Utility from '../utility/module';
+
 enum AnimationCurveType {
     linear,
     ease,
+    easeOut,
+    easeIn,
     custom
 }
 
@@ -24,10 +28,14 @@ export class AnimationCurve {
         return new AnimationCurve(AnimationCurveType.ease);
     }
 
-    static get spring(): AnimationCurve {
+    static get easeOut(): AnimationCurve {
+        return new AnimationCurve(AnimationCurveType.easeOut);
+    }
+
+    static spring(args?: { damping: number }): AnimationCurve {
         return new AnimationCurve(AnimationCurveType.custom, function(x: number) { 
             const a = 0.15;
-            const w = 19.4;
+            const w = (1 - Utility.unwrap({ optional: args?.damping, fallback: 0.8 })) * 20;
             return -(Math.pow(Math.E, (-x / a)) * Math.cos(x * w)) + 1;
         });
     }
@@ -40,7 +48,7 @@ export class AnimationCurve {
         switch (this.type) {
             case AnimationCurveType.linear:
                 return at;
-            case AnimationCurveType.linear:
+            case AnimationCurveType.ease:
                 console.log(`ease animation not implemented yet`);
                 return at;
             case AnimationCurveType.custom:

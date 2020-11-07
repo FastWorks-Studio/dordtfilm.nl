@@ -1,5 +1,7 @@
 import React from 'react';
 import './DownArrow.css';
+import * as Utility from '../../utility/module';
+import * as Models from '../../models/module';
 
 type Props = {
   action?: Function
@@ -7,10 +9,12 @@ type Props = {
 
 export class DownArrow extends React.Component<Props> {
 
+  button: React.RefObject<HTMLButtonElement> = React.createRef();
+
   render() {
     return (
     <>
-      <button className="down-arrow" onClick={this.didTap.bind(this)} aria-hidden="true" style={{cursor: (this.props.action === undefined) ? `` : `pointer`}}>
+      <button ref={this.button} className="down-arrow" onClick={this.didTap.bind(this)} aria-hidden="true" style={{cursor: (this.props.action === undefined) ? `` : `pointer`}}>
         <img className="down-arrow-image" src="./icons/arrow-down.svg" alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is" />
       </button>
     </>)
@@ -19,6 +23,22 @@ export class DownArrow extends React.Component<Props> {
   didTap() {
     if (this.props.action === undefined) { return; }
     this.props.action()
+  }
+
+  prepareForAnimation() {
+    const button = this.button?.current;
+    if (button !== null && button !== undefined) { button.style.opacity = `0`; }
+  }
+
+  animateIn(args?: { delay?: number }) {
+    Utility.Animator.animate(this.button.current, { 
+      from: Models.Transform.identity
+        .opacity({ amount: 0 })
+        .translated({ y: -50 }),
+        delay: args?.delay,
+      duration: 5,
+      curve: Models.AnimationCurve.spring()
+    });
   }
 }
 

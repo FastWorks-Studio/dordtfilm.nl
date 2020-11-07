@@ -1,11 +1,11 @@
-import { Transform } from 'stream';
 import * as Model from '../../models/module';
 import * as Utility from '../../utility/module';
 
 export class Animator {
 
-    public static animate(element: HTMLElement, animation: Model.Animation): Animator {
-        return new Animator(element, animation);
+    public static animate(element: HTMLElement | null | undefined, animation: Model.Animation) {
+        if (element === null || element === undefined) { return; }
+        new Animator(element, animation);
     }
 
     private constructor(element: HTMLElement, animation: Model.Animation) {
@@ -54,9 +54,9 @@ export class Animator {
         const rotation = this.getRotation();
         const translation = this.getTranslation();
         let translations: string[] = []
-        if (scale !== null) { translations.push(`scale(${scale.toFixed(2)})`); }
+        if (scale !== null) { translations.push(`scale(${scale.toFixed(5)})`); }
         if (rotation !== null) { translations.push(`rotate(${rotation.toFixed(2)}deg)`); }
-        if (translation !== null) { translations.push(`translate3d(${translation.x.toFixed(2)}px, ${translation.y.toFixed(2)}px, 0px)`); }
+        if (translation !== null) { translations.push(`translate3d(${translation.x.toFixed(5)}px, ${translation.y.toFixed(5)}px, 0px)`); }
         const transform = translations.join(" ");
         this.element.style.transform = transform;
     }
@@ -71,7 +71,7 @@ export class Animator {
 
     private getTranslation(): { x: number, y: number } | null {
         const x = this.interpolate({ from: this.startProperties.translation?.x, to: this.endProperties.translation?.x, fallback: 0 })
-        const y = this.interpolate({ from: this.startProperties.translation?.x, to: this.endProperties.translation?.x, fallback: 0 })
+        const y = this.interpolate({ from: this.startProperties.translation?.y, to: this.endProperties.translation?.y, fallback: 0 })
         if (x === null && y === null) { return null; }
         return { 
             x: Utility.unwrap<number>({ optional: x, fallback: 0 }),

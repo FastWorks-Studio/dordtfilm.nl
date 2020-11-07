@@ -1,5 +1,3 @@
-@import "../../shared/animations.css";
-
 .down-arrow {
   outline: none;
   border: none;
@@ -13,8 +11,6 @@
   left: 0;
   right: 0;
 
-  animation: fadeInZoomIn 1s, bounce 4s infinite;
-  animation-timing-function: ease-out;
   z-index: 420;
 }
 
@@ -24,22 +20,4 @@
   background-position: center;
   user-select: none;
   pointer-events: none;
-}
-
-@keyframes bounce {
-  0% {
-    transform: scale(1, 1) translateY(0);
-  }
-  5% {
-    transform: scale(1.02, 0.95) translateY(0);
-  }
-  20% {
-    transform: scale(0.98, 1.05) translateY(-1vh);
-  }
-  50% {
-    transform: scale(1, 1) translateY(0);
-  }
-  100% {
-    transform: scale(1, 1) translateY(0);
-  }
 }
