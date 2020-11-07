@@ -39,7 +39,9 @@ export class Logo extends React.Component<Props> {
     Utility.Animator.animate(this.title.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .translated({ x: 100 }),
+        .rotated({ amount: 1 })
+        .scaled({ amount: 0.95 })
+        .translated({ x: 300 }),
         delay: args?.delay,
       duration: 3,
       curve: Models.AnimationCurve.spring()
@@ -47,8 +49,10 @@ export class Logo extends React.Component<Props> {
     Utility.Animator.animate(this.subtitle.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .translated({ x: -60 }),
-        delay: (args?.delay || 0) + 0.1,
+        .rotated({ amount: -1 })
+        .scaled({ amount: 0.95 })
+        .translated({ x: -200 }),
+      delay: (args?.delay || 0) + 0.4,
       duration: 3,
       curve: Models.AnimationCurve.spring()
     });

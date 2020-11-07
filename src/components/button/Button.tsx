@@ -49,9 +49,10 @@ export class Button extends React.Component<Props> {
     Utility.Animator.animate(this.div.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
+        .scaled({ amount: 0.95 })
         .translated({ y: 10 }),
         delay: args?.delay,
-      duration: 4,
+      duration: 6,
       curve: Models.AnimationCurve.spring()
     });
   }

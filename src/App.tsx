@@ -42,7 +42,7 @@ export class App extends React.Component<Props> {
     document.addEventListener("scroll", function() {
       if (context.downArrowHidden) { return; }
       const alpha = Math.min(1, Math.max(0, 1 - (window.scrollY / (window.innerHeight * 0.1))));
-      const downArrow = context.downArrow.current?.button.current;
+      const downArrow = context.downArrow.current?.img.current;
       if (downArrow === undefined || downArrow === null) { return; }
       downArrow.style.opacity = `${alpha}`
       if (alpha === 0) { context.downArrowHidden = true; }

@@ -49,8 +49,11 @@ export class AnimationCurve {
             case AnimationCurveType.linear:
                 return at;
             case AnimationCurveType.ease:
-                console.log(`ease animation not implemented yet`);
-                return at;
+                return Math.sin((at * Math.PI) - Math.PI * 0.5) * 0.5 + 0.5;
+            case AnimationCurveType.easeIn:
+                return -Math.cos(at * Math.PI * 0.5) + 1
+            case AnimationCurveType.easeOut:
+                return Math.sin((at * Math.PI * 0.5));
             case AnimationCurveType.custom:
                 console.assert(this.formula, 'formula should be set when AnimationCurveType is .custom')
                 if (this.formula === undefined || this.formula === null) { return at; }

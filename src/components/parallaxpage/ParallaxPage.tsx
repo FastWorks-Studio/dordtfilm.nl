@@ -69,30 +69,11 @@ export class ParallaxPage extends React.Component<Props> {
   }
 
   private willLoadVideo(element: HTMLVideoElement) {
-    if (this.props.animateEntry || false) { element.style.opacity = `0`; }
+    element.style.opacity = `0`;
   }
 
   private didLoadVideo(element: HTMLVideoElement) {
-    if (this.props.onDidLoadBackground !== null && this.props.onDidLoadBackground !== undefined) {
-      this.props.onDidLoadBackground(this);
-    }
-    if (this.props.animateEntry || false) {
-      Utility.Animator.animate(element, { 
-        from: Models.Transform.identity
-          .scaled({ amount: this.initialBackgroundScale })
-          .opacity({ amount: 1 }),
-        duration: 2,
-        curve: Models.AnimationCurve.easeOut
-      })
-      Utility.Animator.animate(this.backgroundImage.current, { 
-        from: Models.Transform.identity
-          .scaled({ amount: this.initialBackgroundScale }),
-        to: Models.Transform.identity
-          .scaled({ amount: 1 }),
-        duration: 2,
-        curve: Models.AnimationCurve.easeOut
-      });
-    }
+    element.style.opacity = `1`;
   }
 
   private loadBackgroundImage(url?: string) {
@@ -104,9 +85,6 @@ export class ParallaxPage extends React.Component<Props> {
 
     const context = this
     preloaderImg.addEventListener('load', (event) => {
-      if (context.props.onDidLoadBackground !== null && context.props.onDidLoadBackground !== undefined && Utility.isVoid(context.props.video)) {
-        context.props.onDidLoadBackground(context);
-      }
       const backgroundImage = context.backgroundImage.current;
       if (backgroundImage === undefined || backgroundImage === null) { return; }
       backgroundImage.style.backgroundImage = `url("${imageUrl}")`;
@@ -114,18 +92,14 @@ export class ParallaxPage extends React.Component<Props> {
       if (context.props.animateEntry || false) {
         Utility.Animator.animate(this.background.current, {
           from: Models.Transform.identity
-          .opacity({ amount: 0 }),
+            .opacity({ amount: 0 })
+            .scaled({ amount: 1.1 }),
           duration: 2,
           curve: Models.AnimationCurve.easeOut
         });
-        Utility.Animator.animate(backgroundImage, { 
-          from: Models.Transform.identity
-            .scaled({ amount: this.initialBackgroundScale }),
-          to: Models.Transform.identity
-            .scaled({ amount: !!this.props.video ? this.initialBackgroundScale : 1 }),
-          duration: 2,
-          curve: Models.AnimationCurve.easeOut
-        });
+      }
+      if (context.props.onDidLoadBackground !== null && context.props.onDidLoadBackground !== undefined) {
+        context.props.onDidLoadBackground(context);
       }
     });
   }
