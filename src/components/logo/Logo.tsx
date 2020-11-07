@@ -39,7 +39,7 @@ export class Logo extends React.Component<Props> {
     Utility.Animator.animate(this.title.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .rotated({ amount: 1 })
+        .rotated({ amount: 10 })
         .blurred({ amount: 10 })
         .scaled({ amount: 0.95 })
         .translated({ x: 300 }),
@@ -50,7 +50,7 @@ export class Logo extends React.Component<Props> {
     Utility.Animator.animate(this.subtitle.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .rotated({ amount: -1 })
+        .rotated({ amount: -10 })
         .blurred({ amount: 10 })
         .scaled({ amount: 0.95 })
         .translated({ x: -200 }),
