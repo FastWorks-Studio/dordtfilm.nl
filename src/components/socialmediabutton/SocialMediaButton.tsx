@@ -2,29 +2,26 @@ import React from 'react';
 import './SocialMediaButton.css';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
+import * as UI from '../module';
 
 type Props = {
   title: string
   icon: string
+  iconAlt: string
   action: string | Function
 }
 
-export class SocialMediaButton extends React.Component<Props> {
+export class SocialMediaButton extends React.Component<Props> implements UI.Animatable {
 
-  div: React.RefObject<HTMLDivElement> = React.createRef();
   button: React.RefObject<HTMLButtonElement> = React.createRef();
   img: React.RefObject<HTMLImageElement> = React.createRef();
 
   render() {
     return (
-      <>
-      <div ref={this.div} className="socialmediabutton-container" >
-        <button className='socialmediabutton-button' ref={this.button} onClick={this.didTapCallToAction.bind(this)}>
-          <img className="socialmediabutton-icon" ref={this.img} src={`./icons/${this.props.icon}`} />
-          {this.props.title}
-        </button>
-      </div>
-      </>
+      <button className='socialmediabutton-button' ref={this.button} onClick={this.didTapCallToAction.bind(this)}>
+        <img className="socialmediabutton-icon" ref={this.img} alt={this.props.iconAlt} src={`./icons/${this.props.icon}`} />
+        {this.props.title}
+      </button>
     );
   }
 
@@ -37,8 +34,10 @@ export class SocialMediaButton extends React.Component<Props> {
   }
 
   prepareForAnimation() {
-    const div = this.div?.current;
-    if (div !== null && div !== undefined) { div.style.opacity = `0`; }
+    const button = this.button?.current;
+    if (button !== null && button !== undefined) { button.style.opacity = `0`; }
+    const img = this.img?.current;
+    if (img !== null && img !== undefined) { img.style.opacity = `0`; }
   }
 
   animateIn(args?: { delay?: number }) {

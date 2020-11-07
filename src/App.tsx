@@ -3,8 +3,6 @@ import './App.css';
 import * as UI from './components/module';
 import * as Scenes from './scenes/module';
 import * as Utility from './utility/module';
-import * as Models from './models/module';
-import { setInterval } from 'timers';
 
 type Props = { }
 

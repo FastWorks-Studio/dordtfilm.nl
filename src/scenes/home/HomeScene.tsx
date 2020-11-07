@@ -1,8 +1,6 @@
 import React from 'react';
 import './HomeScene.css';
 import * as UI from '../../components/module';
-import * as Utility from '../../utility/module';
-import * as Models from '../../models/module';
 
 type Props = {
     onDidLoadBackground?: () => void
@@ -19,7 +17,10 @@ export class HomeScene extends React.Component<Props> {
   render() {
     return (
         <UI.ParallaxPage image='home-preload.jpg' video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#000000' focalDim={0} animateEntry={true} onDidLoadBackground={this.didLoadBackground.bind(this)}>
-          <UI.SocialMediaButton ref={this.fbButton} title="Like ons" icon="facebook.png" action="https://www.facebook.com/dordtfilm" />
+          <UI.StickyBar>
+            <UI.SocialMediaButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
+            {/* <UI.SocialMediaButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
+          </UI.StickyBar>
           <UI.Logo ref={this.logo} />
           {/* <UI.Spacer size='1vh' />
           <UI.Button title="Like ons op facebook" action="https://www.facebook.com/dordtfilm" center={true} ref={this.button}/> */}
@@ -30,6 +31,7 @@ export class HomeScene extends React.Component<Props> {
   componentDidMount() {
     this.logo.current?.prepareForAnimation();
     this.button.current?.prepareForAnimation();
+    this.fbButton.current?.prepareForAnimation();
   }
 
   private didLoadBackground(element: UI.ParallaxPage) {
@@ -38,8 +40,8 @@ export class HomeScene extends React.Component<Props> {
     logo?.animateIn({ delay: 0.7 });
     const button = this.button.current;
     button?.animateIn({ delay: 2.5 });
-    const fbButton = this.fbButton.current;
-    fbButton?.animateIn({ delay: 2.3 });
+    const stickyBar = this.fbButton.current;
+    stickyBar?.animateIn({ delay: 2.3 });
   }
 }
 

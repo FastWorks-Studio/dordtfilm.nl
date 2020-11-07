@@ -10,3 +10,5 @@ export { Text } from './text/Text';
 export { Player } from './player/Player';
 export { YoutubePlayer } from './youtubeplayer/YoutubePlayer';
 export { FillContainer } from './fillcontainer/FillContainer';
+export { StickyBar } from './stickybar/StickyBar';
+export type { Animatable } from './Animatable'

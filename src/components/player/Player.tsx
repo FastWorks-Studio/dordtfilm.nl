@@ -1,7 +1,6 @@
 import React from 'react';
 import './Player.css';
 import * as UI from '../module';
-import * as Utility from '../../utility/module';
 
 type Props = { 
     video: string

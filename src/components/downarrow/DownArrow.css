@@ -21,3 +21,8 @@
   user-select: none;
   pointer-events: none;
 }
+
+.down-arrow-text {
+  color: white;
+  font-family: "Isocteur";
+}
