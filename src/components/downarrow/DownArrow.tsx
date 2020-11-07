@@ -34,8 +34,8 @@ export class DownArrow extends React.Component<Props> {
     Utility.Animator.animate(this.button.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
-        .blurred({ amount: 10 })
-        .translated({ y: -50 }),
+        .blurred({ amount: 5 })
+        .translated({ y: -250 }),
         delay: args?.delay,
       duration: 7,
       curve: Models.AnimationCurve.spring()
