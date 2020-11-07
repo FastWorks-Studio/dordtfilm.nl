@@ -18,6 +18,7 @@ export class App extends React.Component<Props> {
         {/* <Scenes.TrailerScene /> */}
         <Scenes.ExperienceScene />
         <Scenes.PeopleScene />
+        <Scenes.PassionScene />
         <Scenes.ContactScene />
         <UI.DownArrow ref={this.downArrow} />
       </>

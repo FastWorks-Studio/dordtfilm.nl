@@ -13,7 +13,15 @@ type Props = {
   loadingColor?: string
   focalDim?: number
   animateEntry?: boolean
+  loopVideo?: boolean
+  backgroundXOffset?: number
   onDidLoadBackground?: (element: UI.ParallaxPage) => void
+}
+
+enum VisibilityLevel {
+  notVisible,
+  singlePixel,
+  barely,
 }
 
 export class ParallaxPage extends React.Component<Props> {
@@ -24,6 +32,7 @@ export class ParallaxPage extends React.Component<Props> {
   private backgroundImage: React.RefObject<HTMLDivElement> = React.createRef();
   private dim: React.RefObject<HTMLDivElement> = React.createRef();
   private content: React.RefObject<HTMLDivElement> = React.createRef();
+  private player: React.RefObject<UI.Player> = React.createRef();
 
   private backgroundBlurRadius: number = 69;
   private contentBlurRadius: number = 69;
@@ -40,17 +49,25 @@ export class ParallaxPage extends React.Component<Props> {
   private parallaxOffset: Utility.InertialNumber = new Utility.InertialNumber({ acceleration: 4, inertia: 0.7 });
 
   private initialBackgroundScale: number = 1.1;
+  
+  private visibilityLevel: VisibilityLevel = VisibilityLevel.notVisible;
 
   private focusUpdateIntervalMs: number = 1000 / 24
+
+  get autoplay(): boolean {
+    if (this.props.loopVideo !== undefined && this.props.loopVideo !== null) {
+      return this.props.loopVideo;
+    } else {
+      return true;
+    }
+  }
 
   render() {
     return (
       <div className="parallax-page" ref={this.page}>
-        <div className = "parallax-page-background-container-entry" ref={this.backgroundEntryContainer}>
-          <div className='parallax-page-background-container' ref={this.backgroundContainer} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
-            <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
-            {this.props.video && (<UI.Player video={`${this.props.video}`} />)}
-          </div>
+        <div className='parallax-page-background-container' ref={this.backgroundContainer} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
+          <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
+          {this.props.video && (<UI.Player ref={this.player}video={`${this.props.video}`} loopVideo={this.props.loopVideo} autoplay={this.autoplay} xOffset={this.props.backgroundXOffset} />)}
         </div>
         <div className="parallax-page-background-dim" ref={this.dim}/>
         <div className="parallax-page-content-container" ref={this.content}>
@@ -63,12 +80,40 @@ export class ParallaxPage extends React.Component<Props> {
   componentDidMount() {
     if (this.props.focalDim !== undefined) { this.focalDim = this.props.focalDim; }
     this.doParallax = !!this.page.current?.offsetParent;
+    window.addEventListener("scroll", this.checkIfOnScreen.bind(this));
+    this.checkIfOnScreen();
     if (this.doParallax === true) { 
       setInterval(this.updateFocus.bind(this), this.focusUpdateIntervalMs);
       window.addEventListener("scroll", this.updateParallax.bind(this));
       this.updateParallax();
     }
     this.loadBackgroundImage(this.props.image);
+  }
+
+  private checkIfOnScreen() {
+    if (this.isInViewport(0.8)) {
+      this.handleVisibilityLevel(VisibilityLevel.barely);
+    } else if (this.isInViewport(0.99)) {
+      this.handleVisibilityLevel(VisibilityLevel.singlePixel);
+    } else {
+      this.handleVisibilityLevel(VisibilityLevel.notVisible);
+    }
+  }
+
+  private handleVisibilityLevel(visibilityLevel: VisibilityLevel) {
+    if (this.visibilityLevel === visibilityLevel) { return; }
+    this.visibilityLevel = visibilityLevel;
+    const player = this.player.current;
+    if (player !== null && player !== undefined && this.autoplay === false) {
+      switch (this.visibilityLevel) {
+        case VisibilityLevel.notVisible:
+          player.stop(); break;
+        case VisibilityLevel.singlePixel:
+          player.rewind(); break;
+        case VisibilityLevel.barely:
+          player.play();
+      }
+    }
   }
 
   private loadBackgroundImage(url?: string) {
@@ -83,17 +128,31 @@ export class ParallaxPage extends React.Component<Props> {
       const backgroundImage = context.backgroundImage.current;
       if (backgroundImage === undefined || backgroundImage === null) { return; }
       backgroundImage.style.backgroundImage = `url("${imageUrl}")`;
+      const rect = this.page.current?.getBoundingClientRect();
+      const backgroundXOffset = this.props.backgroundXOffset;
+      if (preloaderImg !== null && rect !== null && rect !== undefined && backgroundXOffset !== null && backgroundXOffset !== undefined) {
+        let parentAspect = rect.width / rect.height;
+        let imageAspect = preloaderImg.naturalWidth / preloaderImg.naturalHeight;
+        const overshoot = (imageAspect / parentAspect) - 1;
+        backgroundImage.style.width = `${(imageAspect * 100).toFixed(0)}vh`
+        backgroundImage.style.transform = `translate3d(${overshoot * backgroundXOffset * 50}vw, 0vw, 0vw)`;
+      }
       preloaderImg = null;
+      const container = context.backgroundContainer.current;
       if (context.props.animateEntry || false) {
-        Utility.Animator.animate(this.backgroundEntryContainer.current, {
-          from: Models.Transform.identity
-            .opacity({ amount: 0 })
-            .rotated({ amount: 10 })
-            .blurred({ amount: 2 })
-            .scaled({ amount: 1.5 }),
-          duration: 7,
-          curve: Models.AnimationCurve.easeOut
-        });
+        if (container === undefined || container === null) { return; }
+        container.style.opacity = '0';
+        setTimeout(function() { 
+          Utility.Animator.animate(container, {
+            from: Models.Transform.identity
+              .opacity({ amount: 0 })
+              .rotated({ amount: 10 })
+              .blurred({ amount: 2 })
+              .scaled({ amount: 1.5 }),
+            duration: 7,
+            curve: Models.AnimationCurve.easeOut
+          });
+        }, 200);
       }
       if (context.props.onDidLoadBackground !== null && context.props.onDidLoadBackground !== undefined) {
         context.props.onDidLoadBackground(context);
@@ -109,14 +168,14 @@ export class ParallaxPage extends React.Component<Props> {
   }
 
   private updateParallax() {
-    if (this.isInViewport() === false || this.doParallax === false) { return; }
+    if (this.isInViewport(1.2) === false || this.doParallax === false) { return; }
     const offset = this.getOffsetInViewPort();
     this.updateParallaxOffset(offset);
   }
 
   private updateFocus(): void {
     this.adjustPerformance();
-    if (this.isInViewport() === false) { return; }
+    if (this.isInViewport(1.2) === false) { return; }
     const offset = this.getOffsetInViewPort();
     const absOffset: number = Math.max(0, Math.abs(offset) - this.focalArea);
     const contentOpacity = Math.max(0, 1 - (absOffset * (1 / this.focalTransitionSize)));
@@ -130,7 +189,7 @@ export class ParallaxPage extends React.Component<Props> {
 
   private updateContentBlurRadius(offset: number) {
     const content = this.content.current as HTMLElement;
-    if (content === undefined || (this.props.blurContent !== true)) { return; }
+    if (content === undefined || this.props.blurContent !== true) { return; }
     const contentBlurRadius = offset * 2 * this.contentBlurIntensity;
     if (Math.abs(contentBlurRadius - this.contentBlurRadius) < 0.1) { return; }
     this.contentBlurRadius = contentBlurRadius;
@@ -143,18 +202,14 @@ export class ParallaxPage extends React.Component<Props> {
 
   private updateBackgroundBlurRadius(offset: number) {
     let background = this.backgroundContainer.current as HTMLElement;
-    if (background === undefined) { return; }
+    if (background === undefined || this.props.blurBackground !== true) { return; }
     const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 0.3 * this.backgroundBlurIntensity;
     if (Math.abs(backgroundBlurRadius - this.backgroundBlurRadius) < 0.1) { return; }
     this.backgroundBlurRadius = backgroundBlurRadius;
     if (Math.abs(backgroundBlurRadius) < 0.1) {
       background.style.filter = ``;
     } else {
-      if (this.props.blurBackground !== false) {
-        background.style.filter = `blur(${backgroundBlurRadius}vmax)`;
-      } else {
-        background.style.filter = ``;
-      }
+      background.style.filter = `blur(${backgroundBlurRadius}vmax)`;
     }
   }
 
@@ -191,10 +246,10 @@ export class ParallaxPage extends React.Component<Props> {
     background.style.transform = `translate3d(0px, ${parallaxOffset}px, 0px)`
   }
 
-  private isInViewport(): boolean {
+  private isInViewport(sizeMultiplier: number): boolean {
     const rect = this.page.current?.getBoundingClientRect();
     if (rect) {
-      return rect.y >= -(rect.height * 1.3) && rect.y <= (rect.height * 1.3);
+      return rect.y >= -(rect.height * sizeMultiplier) && rect.y <= (rect.height * sizeMultiplier);
     } else { 
       return false;
     }

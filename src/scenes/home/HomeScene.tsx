@@ -16,7 +16,7 @@ export class HomeScene extends React.Component<Props> {
 
   render() {
     return (
-        <UI.ParallaxPage image='home-preload.jpg' video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#000000' focalDim={0} animateEntry={true} onDidLoadBackground={this.didLoadBackground.bind(this)}>
+        <UI.ParallaxPage image='home.jpg' video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#000000' focalDim={0} animateEntry={true} onDidLoadBackground={this.didLoadBackground.bind(this)}>
           <UI.StickyBar>
             <UI.SocialMediaButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
             {/* <UI.SocialMediaButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
