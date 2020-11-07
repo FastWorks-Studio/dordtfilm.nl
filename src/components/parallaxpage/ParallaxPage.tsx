@@ -85,8 +85,9 @@ export class ParallaxPage extends React.Component<Props> {
         Utility.Animator.animate(this.background.current, {
           from: Models.Transform.identity
             .opacity({ amount: 0 })
-            .scaled({ amount: 1.1 }),
-          duration: 2,
+            .blurred({ amount: 2 })
+            .scaled({ amount: 1.3 }),
+          duration: 5,
           curve: Models.AnimationCurve.easeOut
         });
       }
@@ -126,27 +127,27 @@ export class ParallaxPage extends React.Component<Props> {
   private updateContentBlurRadius(offset: number) {
     const content = this.content.current as HTMLElement;
     if (content === undefined || (this.props.blurContent !== true)) { return; }
-    const contentBlurRadius = offset * 20 * this.contentBlurIntensity;
+    const contentBlurRadius = offset * 2 * this.contentBlurIntensity;
     if (Math.abs(contentBlurRadius - this.contentBlurRadius) < 0.1) { return; }
     this.contentBlurRadius = contentBlurRadius;
     if (Math.abs(contentBlurRadius) < 0.1) {
       content.style.filter = ``;
     } else {
-      content.style.filter = `blur(${contentBlurRadius}px)`;
+      content.style.filter = `blur(${contentBlurRadius}vmin)`;
     }
   }
 
   private updateBackgroundBlurRadius(offset: number) {
     let background = this.background.current as HTMLElement;
     if (background === undefined) { return; }
-    const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 3 * this.backgroundBlurIntensity;
+    const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 0.3 * this.backgroundBlurIntensity;
     if (Math.abs(backgroundBlurRadius - this.backgroundBlurRadius) < 0.1) { return; }
     this.backgroundBlurRadius = backgroundBlurRadius;
     if (Math.abs(backgroundBlurRadius) < 0.1) {
       background.style.filter = ``;
     } else {
       if (this.props.blurBackground !== false) {
-        background.style.filter = `blur(${backgroundBlurRadius}px)`;
+        background.style.filter = `blur(${backgroundBlurRadius}vmin)`;
       } else {
         background.style.filter = ``;
       }

@@ -2,7 +2,8 @@ export enum TransformationType {
     translation,
     opacity,
     scale,
-    rotation
+    rotation,
+    blur
 }
 
 export interface Transformation<Value> {
@@ -78,5 +79,20 @@ export class Opacity implements Transformation<number> {
 
     static amount(value: number): Opacity {
         return new Opacity(value);
+    }
+}
+
+export class Blur implements Transformation<number> {
+
+    type: TransformationType = TransformationType.blur;
+
+    value: number;
+
+    constructor(value: number) {
+        this.value = value
+    }
+
+    static amount(value: number): Blur {
+        return new Blur(value);
     }
 }

@@ -40,6 +40,7 @@ export class Logo extends React.Component<Props> {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .rotated({ amount: 1 })
+        .blurred({ amount: 10 })
         .scaled({ amount: 0.95 })
         .translated({ x: 300 }),
         delay: args?.delay,
@@ -50,6 +51,7 @@ export class Logo extends React.Component<Props> {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .rotated({ amount: -1 })
+        .blurred({ amount: 10 })
         .scaled({ amount: 0.95 })
         .translated({ x: -200 }),
       delay: (args?.delay || 0) + 0.4,

@@ -28,6 +28,11 @@ export class Transform {
         return this;
     }
 
+    public blurred(by: { amount: number }): Transform {
+        this.transformations.push(Models.Blur.amount(by.amount));
+        return this;
+    }
+
     public get properties(): Models.TransformProperties {
         var result: Models.TransformProperties = { };
         this.transformations.forEach(transformation => {
@@ -40,6 +45,8 @@ export class Transform {
                     result.opacity = transformation.value; break;
                 case TransformationType.scale:
                     result.scale = transformation.value; break;
+                case TransformationType.blur:
+                    result.blur = transformation.value; break;
                 default:
                     console.assert(false, `handling ${transformation.type} was not implemented`); break;
             }

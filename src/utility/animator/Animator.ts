@@ -45,12 +45,30 @@ export class Animator {
     private renderState(progress: number) {
         this.renderOpacity(progress);
         this.renderTransform(progress);
+        this.renderFilter(progress);
     }
 
     private renderOpacity(progress: number) {
-        const value = this.interpolate({ from: this.startProperties.opacity, to: this.endProperties.opacity, progress: progress, fallback: 1 })
+        const value = this.interpolate({ 
+            from: this.startProperties.opacity, 
+            to: this.endProperties.opacity, 
+            progress: progress, 
+            fallback: 1 
+        })
         if (Utility.isVoid(value) || this.element === null || this.element === undefined) { return; }
         this.element.style.opacity = value?.toFixed(4) || ``;
+    }
+
+    private renderFilter(progress: number) {
+        const value = this.interpolate({ 
+            from: this.startProperties.blur, 
+            to: this.endProperties.blur, 
+            progress: progress, 
+            fallback: 0
+        });
+        if (this.element === null || this.element === undefined) { return; }
+        if (value === undefined || value === null) { return; }
+        this.element.style.filter = `blur(${value.toFixed(4)}vmin)`;
     }
 
     private renderTransform(progress: number) {

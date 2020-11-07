@@ -11,6 +11,7 @@
   padding-bottom: 0;
   color: $primaryText;
   text-shadow: 1vw 0.7vw rgb(45, 44, 42);
+  filter: blur(0.04vmin);
 }
 
 .logo-subtitle {
@@ -20,6 +21,7 @@
   padding: 0;
   padding-bottom: 5vh;
   color: $primaryText;
+  filter: blur(0.04vmin);
 }
 
 @media (min-aspect-ratio: 3/2) {

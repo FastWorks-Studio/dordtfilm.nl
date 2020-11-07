@@ -44,6 +44,7 @@ export class SocialMediaButton extends React.Component<Props> implements UI.Anim
     Utility.Animator.animate(this.button.current, {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
+        .blurred({ amount: 10 })
         .translated({ x: -30 }),
       duration: 2,
       delay: args?.delay,
