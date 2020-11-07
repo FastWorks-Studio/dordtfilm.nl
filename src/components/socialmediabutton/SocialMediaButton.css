@@ -1,11 +1,3 @@
-.socialmediabutton-container {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 5vmin;
-  left: 5vmin;
-}
-
 .socialmediabutton-icon {
   width: calc(2.5vmin + 2.5vmax);
   height: calc(2.5vmin + 2.5vmax);

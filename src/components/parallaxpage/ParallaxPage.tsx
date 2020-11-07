@@ -86,8 +86,8 @@ export class ParallaxPage extends React.Component<Props> {
           from: Models.Transform.identity
             .opacity({ amount: 0 })
             .blurred({ amount: 2 })
-            .scaled({ amount: 1.3 }),
-          duration: 5,
+            .scaled({ amount: 1.5 }),
+          duration: 7,
           curve: Models.AnimationCurve.easeOut
         });
       }
@@ -133,7 +133,7 @@ export class ParallaxPage extends React.Component<Props> {
     if (Math.abs(contentBlurRadius) < 0.1) {
       content.style.filter = ``;
     } else {
-      content.style.filter = `blur(${contentBlurRadius}vmin)`;
+      content.style.filter = `blur(${contentBlurRadius}vmax)`;
     }
   }
 
@@ -147,7 +147,7 @@ export class ParallaxPage extends React.Component<Props> {
       background.style.filter = ``;
     } else {
       if (this.props.blurBackground !== false) {
-        background.style.filter = `blur(${backgroundBlurRadius}vmin)`;
+        background.style.filter = `blur(${backgroundBlurRadius}vmax)`;
       } else {
         background.style.filter = ``;
       }
