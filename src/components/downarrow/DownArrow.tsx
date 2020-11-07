@@ -1,5 +1,5 @@
 import React from 'react';
-import './DownArrow.css';
+import './DownArrow.scss';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
 

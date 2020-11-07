@@ -1,5 +1,5 @@
 import React from 'react';
-import './Logo.css';
+import './Logo.scss';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
 

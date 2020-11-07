@@ -1,3 +1,5 @@
+@import "../../shared/variables.scss";
+
 .container {
   display: flex;
   align-items: center;
@@ -6,8 +8,8 @@
 .button {
   font-size: calc(1.4vmin + 1.4vmax);
   font-family: "Isocteur";
-  color: #f2f2ea;
-  border: 3px solid #f2f2ea;
+  color: $primaryText;
+  border: 3px solid $primaryText;
   outline: none;
   background-color: transparent;
   font-weight: 600;
@@ -30,6 +32,6 @@
 }
 
 .button:hover {
-  background-color: #ffffff44;
+  background-color: $linkBackground;
   cursor: pointer;
 }

@@ -1,6 +1,8 @@
+@import "../../shared/variables.scss";
+
 a {
-  color: #f2f2ea;
-  background-color: #ffffff22;
+  color: $primaryText;
+  background-color: $linkBackground;
   font-size: calc(1.3vmin + 1.3vmax);
   font-weight: 600;
   text-decoration: none;
@@ -10,10 +12,10 @@ a {
 
 @media (min-aspect-ratio: 3/2) {
   a {
-    font-size: calc(1vmin + 1vmax);
+    font-size: calc(0.9vmin + 0.9vmax);
   }
 }
 
 a:hover {
-  background-color: #ffffff44;
+  background-color: $linkBackgroundHover;
 }

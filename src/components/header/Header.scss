@@ -1,4 +1,7 @@
+@import "../../shared/variables.scss";
+
 h1 {
+  color: $primaryText;
   font-size: calc(2vmin + 2vmax);
   font-weight: 600;
   padding-bottom: 1em;

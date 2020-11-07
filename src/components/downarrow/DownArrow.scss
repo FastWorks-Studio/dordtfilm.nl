@@ -1,3 +1,5 @@
+@import "../../shared/variables.scss";
+
 .down-arrow {
   outline: none;
   border: none;
@@ -20,9 +22,10 @@
   background-position: center;
   user-select: none;
   pointer-events: none;
+  fill: orange;
 }
 
 .down-arrow-text {
-  color: white;
+  color: $primaryText;
   font-family: "Isocteur";
 }

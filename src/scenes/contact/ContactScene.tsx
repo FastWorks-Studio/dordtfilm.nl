@@ -10,7 +10,7 @@ export class ContactScene extends React.Component<Props> {
 
   render() {
     return (
-        <UI.ParallaxPage image='contact-preload.jpg' video='contact.mp4' blurBackground={true}>
+        <UI.ParallaxPage image='contact-preload.jpg' video='contact.mp4' blurBackground={false}>
           <UI.Header text="Contact" />
           <UI.Text>Wilt u contact opnemen met de makers?</UI.Text>
           <UI.Spacer size="5vh" />

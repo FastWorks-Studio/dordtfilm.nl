@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import './Button.scss';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
 

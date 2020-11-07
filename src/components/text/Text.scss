@@ -1,11 +1,14 @@
+@import "../../shared/variables.scss";
+
 p {
+  color: $primaryText;
   font-size: calc(1.3vmin + 1.3vmax);
   padding-bottom: 1em;
 }
 
 @media (min-aspect-ratio: 3/2) {
   p {
-    font-size: calc(1vmin + 1vmax) em;
+    font-size: calc(0.9vmin + 0.9vmax);
     padding-right: 20vw;
   }
 }

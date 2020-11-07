@@ -1,5 +1,5 @@
 import React from 'react';
-import './Link.css';
+import './Link.scss';
 
 type Props = {
     url: string
