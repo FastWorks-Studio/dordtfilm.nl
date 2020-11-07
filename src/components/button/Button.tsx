@@ -24,7 +24,6 @@ export class Button extends React.Component<Props> {
   }
 
   didTapCallToAction() {
-    console.log(`user did tap ${this.props.action}`);
     const url = this.props.action as string
     if (url) { window.open(url, "_blank"); return; }
     

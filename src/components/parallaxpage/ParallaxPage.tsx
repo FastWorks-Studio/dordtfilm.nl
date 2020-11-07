@@ -32,7 +32,7 @@ export class ParallaxPage extends React.Component<Props> {
   private focalArea: number = 0.1;
   private backgroundBlurIntensity: number = 1;
   private contentBlurIntensity: number = 2;
-  private focalTransitionSize: number = 0.3;
+  private focalTransitionSize: number = 0.5;
   private focalDim: number = 0.3;
   private doParallax: boolean = true;
   private parallaxIntensity: number = 0.5;
@@ -139,7 +139,7 @@ export class ParallaxPage extends React.Component<Props> {
   private updateBackgroundBlurRadius(offset: number) {
     let background = this.background.current as HTMLElement;
     if (background === undefined) { return; }
-    const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 4 * this.backgroundBlurIntensity;
+    const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 3 * this.backgroundBlurIntensity;
     if (Math.abs(backgroundBlurRadius - this.backgroundBlurRadius) < 0.1) { return; }
     this.backgroundBlurRadius = backgroundBlurRadius;
     if (Math.abs(backgroundBlurRadius) < 0.1) {
