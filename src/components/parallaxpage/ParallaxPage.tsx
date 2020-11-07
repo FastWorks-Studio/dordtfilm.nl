@@ -200,33 +200,37 @@ export class ParallaxPage extends React.Component<Props> {
     return Math.max(range.min, Math.min(range.max, value));
   }
 
-  private consecutiveSlowUpdates: number = 0;
+  private enableSlowMode: boolean = false;
+  private consecutiveModeSwitchUpdates: number = 0;
   private previousUpdate: number = 0;
-  private lastDecreaseIndex: number = 0;
   private adjustPerformance() {
     let date = Date.now();
     let updateRate = date - this.previousUpdate;
     this.previousUpdate = date;
     let actualToDesiredRatio = updateRate / this.focusUpdateIntervalMs;
-    if (actualToDesiredRatio > 1.3) { 
-      this.consecutiveSlowUpdates += 1; 
+    if (this.enableSlowMode === false && actualToDesiredRatio > 1.3) { 
+      this.consecutiveModeSwitchUpdates += 1;
+    } else if (this.enableSlowMode === true && actualToDesiredRatio < 1.1) {
+      this.consecutiveModeSwitchUpdates += 1;
     } else {
-      this.consecutiveSlowUpdates = Math.max(0, this.consecutiveSlowUpdates - 1);
+      this.consecutiveModeSwitchUpdates = Math.max(0, this.consecutiveModeSwitchUpdates - 1);
     }
-    if ((this.consecutiveSlowUpdates - this.lastDecreaseIndex) > 3) {
-      this.backgroundBlurIntensity = Math.max(0, this.backgroundBlurIntensity - 0.1);
-      this.contentBlurIntensity = Math.max(0, this.contentBlurIntensity - 0.1);
-      this.lastDecreaseIndex = this.consecutiveSlowUpdates;
-    } else if (this.consecutiveSlowUpdates > 10) {
-      this.disableParallax();
+    if (this.consecutiveModeSwitchUpdates > 10) {
+      this.switchSlowMode();
     }
   }
   
-  private disableParallax() {
-    let background = this.background.current as HTMLElement;
-    if (background === undefined || background === null) { return; }
-    background.style.transform = ``;
-    this.doParallax = false
+  private switchSlowMode() {
+    this.enableSlowMode = !this.enableSlowMode;
+    this.consecutiveModeSwitchUpdates = 0;
+    if (this.enableSlowMode) {
+      let background = this.background.current as HTMLElement;
+      if (background === undefined || background === null) { return; }
+      background.style.transform = ``;
+      this.doParallax = false
+    } else {
+      this.doParallax = true;
+    }
   }
 }
 
