@@ -21,9 +21,9 @@ export class App extends React.Component<Props> {
         <Scenes.PassionScene />
         <Scenes.ContactScene />
         <UI.BarOverlay 
-          insets="0"
           alignment={UI.BarOverlayAlignment.center} 
-          position={UI.BarOverlayPosition.bottom}>
+          position={UI.BarOverlayPosition.bottom}
+          persistence={UI.BarOverlayPersistence.sticky}>
             <UI.DownArrow ref={this.downArrow} />
         </UI.BarOverlay>
       </>

@@ -2,9 +2,7 @@
   left: env(safe-area-inset-left);
   top: env(safe-area-inset-top);
   right: env(safe-area-inset-right);
-
-  // For some reason, bottom inset is already set, so setting safe area inset causes the value to be incorrect (double the inset)
-  bottom: 0; //env(safe-area-inset-bottom);
+  bottom: env(safe-area-inset-bottom);
 }
 
 .baroverlay-container {
