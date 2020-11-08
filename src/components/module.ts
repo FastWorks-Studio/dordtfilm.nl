@@ -11,4 +11,5 @@ export { Player } from './player/Player';
 export { YoutubePlayer } from './youtubeplayer/YoutubePlayer';
 export { FillContainer } from './fillcontainer/FillContainer';
 export { StickyBar } from './stickybar/StickyBar';
+export { Pager } from './pager/Pager';
 export type { Animatable } from './Animatable'

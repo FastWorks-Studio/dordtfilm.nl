@@ -13,13 +13,27 @@ export class App extends React.Component<Props> {
   render() {
     return (
       <>
-        <Scenes.HomeScene onDidLoadBackground={this.onDidLoadHome.bind(this)} />
-        <Scenes.AboutScene />
-        {/* <Scenes.TrailerScene /> */}
-        <Scenes.ExperienceScene />
-        <Scenes.PeopleScene />
-        <Scenes.PassionScene />
-        <Scenes.ContactScene />
+        <div className="pager-element">
+          <Scenes.HomeScene onDidLoadBackground={this.onDidLoadHome.bind(this)} />
+        </div>
+        <div className="pager-element">
+          <Scenes.AboutScene />
+        </div>
+        <div className="pager-element">
+          <Scenes.TrailerScene />
+        </div>
+        <div className="pager-element">
+          <Scenes.ExperienceScene />
+        </div>
+        <div className="pager-element">
+          <Scenes.PeopleScene />
+        </div>
+        <div className="pager-element">
+          <Scenes.PassionScene />
+        </div>
+        <div className="pager-element">
+          <Scenes.ContactScene />
+        </div>
         <UI.DownArrow ref={this.downArrow} />
       </>
     );

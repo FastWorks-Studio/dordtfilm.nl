@@ -41,16 +41,17 @@ export class ParallaxPage extends React.Component<Props> {
 
   private focalArea: number = 0.1;
   private backgroundBlurIntensity: number = 1;
-  private contentBlurIntensity: number = 2;
+  private contentBlurIntensity: number = 1;
   private focalTransitionSize: number = 0.5;
   private focalDim: number = 0.3;
   private doParallax: boolean = true;
   private parallaxIntensity: number = 0.5;
   private parallaxOffset: Utility.InertialNumber = new Utility.InertialNumber({ acceleration: 4, inertia: 0.7 });
-
-  private initialBackgroundScale: number = 1.1;
   
   private visibilityLevel: VisibilityLevel = VisibilityLevel.notVisible;
+  private get blurContent(): boolean {
+    return this.props.blurContent === true;
+  }
 
   private focusUpdateIntervalMs: number = 1000 / 24
 
@@ -221,15 +222,17 @@ export class ParallaxPage extends React.Component<Props> {
 
   private updateContentBlurRadius(offset: number) {
     const content = this.content.current as HTMLElement;
-    if (content === undefined || this.props.blurContent !== true) { return; }
+    if (content === undefined || this.blurContent !== true) { return; }
     const contentBlurRadius = offset * 2 * this.contentBlurIntensity;
     if (Math.abs(contentBlurRadius - this.contentBlurRadius) < 0.1) { return; }
     this.contentBlurRadius = contentBlurRadius;
-    if (Math.abs(contentBlurRadius) < 0.1) {
-      content.style.filter = ``;
-    } else {
-      content.style.filter = `blur(${contentBlurRadius}vmax)`;
-    }
+    requestAnimationFrame(function() {
+      if (Math.abs(contentBlurRadius) < 0.1) {
+        content.style.filter = ``;
+      } else {
+        content.style.filter = `blur(${contentBlurRadius}vmax)`;
+      }
+    });
   }
 
   private updateBackgroundBlurRadius(offset: number) {
@@ -238,11 +241,13 @@ export class ParallaxPage extends React.Component<Props> {
     const backgroundBlurRadius = (1 - Math.min(1, offset * (1 / this.focalTransitionSize))) * 0.3 * this.backgroundBlurIntensity;
     if (Math.abs(backgroundBlurRadius - this.backgroundBlurRadius) < 0.1) { return; }
     this.backgroundBlurRadius = backgroundBlurRadius;
-    if (Math.abs(backgroundBlurRadius) < 0.1) {
-      background.style.filter = ``;
-    } else {
-      background.style.filter = `blur(${backgroundBlurRadius}vmax)`;
-    }
+    requestAnimationFrame(function() {
+      if (Math.abs(backgroundBlurRadius) < 0.1) {
+        background.style.filter = ``;
+      } else {
+        background.style.filter = `blur(${backgroundBlurRadius}vmax)`;
+      }
+    })
   }
 
   private updateDimValue(value: number) {
