@@ -12,9 +12,6 @@ export class DownArrow extends React.Component<Props> {
   img: React.RefObject<HTMLImageElement> = React.createRef();
   container: React.RefObject<HTMLDivElement> = React.createRef();
 
-  private opacity: number = 1;
-  private preferredOpacity: number = 1;
-
   render() {
     return (<>
       <div className="down-arrow-container" ref={this.container}>
@@ -29,26 +26,22 @@ export class DownArrow extends React.Component<Props> {
   }
 
   setPreferredOpacity(value: number) {
-    this.preferredOpacity = value;
-    this.renderOpacity();
-  }
-
-  renderOpacity() {
     const container = this.container?.current;
-    if (container !== null && container !== undefined) { 
-      container.style.opacity = `${Math.min(this.preferredOpacity, this.opacity)}`; 
-    }
+    if (container === null || container === undefined) { return; }
+    requestAnimationFrame(function() { 
+      container.style.opacity = `${value}`;
+    })
   }
 
   prepareForAnimation() {
-    this.opacity = 0;
-    this.renderOpacity();
+    const img = this.img.current;
+    if (img === undefined || img === null) { return; }
+    img.style.opacity = `0`;
   }
 
   animateIn(args?: { delay?: number }) {
     const img = this.img.current;
-    this.opacity = 1;
-    Utility.Animator.animate(this.container.current, { 
+    Utility.Animator.animate(img, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .blurred({ amount: 5 })

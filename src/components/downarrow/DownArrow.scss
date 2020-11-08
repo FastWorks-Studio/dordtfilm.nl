@@ -1,6 +1,7 @@
 @import "../../shared/variables.scss";
 
-.down-arrow-container {
+.down-arrow-container,
+.down-arrow-additional-container {
   height: 4vmin;
 }
 
@@ -10,5 +11,4 @@
   background-position: center;
   user-select: none;
   pointer-events: none;
-  animation: float 3s ease infinite;
 }
