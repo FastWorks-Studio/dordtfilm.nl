@@ -65,10 +65,18 @@ export class ParallaxPage extends React.Component<Props> {
   render() {
     return (
       <div className="parallax-page" ref={this.page}>
-        <div className='parallax-page-background-container' ref={this.backgroundContainer} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
-          <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
-          {this.props.video && (<UI.Player ref={this.player}video={`${this.props.video}`} loopVideo={this.props.loopVideo} autoplay={this.autoplay} xOffset={this.props.backgroundXOffset} />)}
-        </div>
+        <div className="parallax-page-background-container-entry" ref={this.backgroundEntryContainer}>
+          <div className='parallax-page-background-container' ref={this.backgroundContainer} style={{backgroundColor: this.props.loadingColor || "#333333"}}>
+            <div className="parallax-page-background-image" aria-hidden="true" ref={this.backgroundImage} />
+            {this.props.video && (<UI.Player 
+              ref={this.player}
+              video={`${this.props.video}`} 
+              loopVideo={this.props.loopVideo} 
+              autoplay={this.autoplay}
+              onEnded={this.onVideoEnded.bind(this)}
+              xOffset={this.props.backgroundXOffset} />)}
+            </div>
+          </div>
         <div className="parallax-page-background-dim" ref={this.dim}/>
         <div className="parallax-page-content-container" ref={this.content}>
           {this.props.children}
@@ -90,6 +98,27 @@ export class ParallaxPage extends React.Component<Props> {
     this.loadBackgroundImage(this.props.image);
   }
 
+  private videoEndAnimation: Utility.Animator | null = null;
+  private onVideoEnded() {
+    this.videoEndAnimation = Utility.Animator.animate(this.backgroundEntryContainer.current, {
+      to: Models.Transform.identity
+        .opacity({ amount: 0.8 })
+        .scaled({ amount: 1.1 })
+        .blurred({ amount: 1 }),
+      duration: 4,
+      curve: Models.AnimationCurve.spring()
+    });
+  }
+
+  private onVideoWillRewind() {
+    this.videoEndAnimation?.cancel();
+    const container = this.backgroundEntryContainer.current;
+    if (container === undefined || container === null) { return; }
+    container.style.opacity = `1`;
+    container.style.filter = ``;
+    container.style.transform = ``;
+  }
+
   private checkIfOnScreen() {
     if (this.isInViewport(0.8)) {
       this.handleVisibilityLevel(VisibilityLevel.barely);
@@ -102,6 +131,7 @@ export class ParallaxPage extends React.Component<Props> {
 
   private handleVisibilityLevel(visibilityLevel: VisibilityLevel) {
     if (this.visibilityLevel === visibilityLevel) { return; }
+    const previousVisibilityLevel = this.visibilityLevel;
     this.visibilityLevel = visibilityLevel;
     const player = this.player.current;
     if (player !== null && player !== undefined && this.autoplay === false) {
@@ -109,6 +139,8 @@ export class ParallaxPage extends React.Component<Props> {
         case VisibilityLevel.notVisible:
           player.stop(); break;
         case VisibilityLevel.singlePixel:
+          if (previousVisibilityLevel === VisibilityLevel.barely) { return; }
+          this.onVideoWillRewind();
           player.rewind(); break;
         case VisibilityLevel.barely:
           player.play();
@@ -138,7 +170,7 @@ export class ParallaxPage extends React.Component<Props> {
         backgroundImage.style.transform = `translate3d(${overshoot * backgroundXOffset * 50}vw, 0vw, 0vw)`;
       }
       preloaderImg = null;
-      const container = context.backgroundContainer.current;
+      const container = context.backgroundEntryContainer.current;
       if (context.props.animateEntry || false) {
         if (container === undefined || container === null) { return; }
         container.style.opacity = '0';

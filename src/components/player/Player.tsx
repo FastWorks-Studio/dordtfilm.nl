@@ -7,6 +7,7 @@ type Props = {
     loopVideo?: boolean
     xOffset?: number
     autoplay?: boolean
+    onEnded?: () => void
 }
 export class Player extends React.Component<Props> {
 
@@ -54,6 +55,9 @@ export class Player extends React.Component<Props> {
     const videoElement = this.player.current;
     if (videoElement === undefined || videoElement === null) { return; }
     videoElement.style.opacity = `0`;
+    const onEnded = this.props.onEnded;
+    if (onEnded === null || onEnded === undefined) { return; }
+    videoElement.addEventListener('ended', onEnded);
   }
 
   rewind() {

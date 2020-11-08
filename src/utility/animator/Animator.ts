@@ -3,9 +3,9 @@ import * as Utility from '../../utility/module';
 
 export class Animator {
 
-    public static animate(element: HTMLElement | null | undefined, animation: Model.Animation) {
-        if (element === null || element === undefined) { return; }
-        new Animator(element, animation);
+    public static animate(element: HTMLElement | null | undefined, animation: Model.Animation): Animator | null {
+        if (element === null || element === undefined) { return null; }
+        return new Animator(element, animation);
     }
 
     private constructor(element: HTMLElement, animation: Model.Animation) {
@@ -31,7 +31,12 @@ export class Animator {
     private previousUpdate: number
     private startTime: number
 
+    cancel() {
+        this.element = null;
+    }
+
     private renderNextFrame() {
+        if (this.element === null || this.element === undefined) { return; }
         const progress = (this.previousUpdate - this.startTime) / (this.animation.duration * 1000);
         this.previousUpdate = Date.now();
         this.renderState(progress);
