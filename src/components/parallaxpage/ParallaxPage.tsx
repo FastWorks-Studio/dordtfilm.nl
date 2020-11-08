@@ -111,7 +111,7 @@ export class ParallaxPage extends React.Component<Props> {
     });
   }
 
-  private onVideoWillRewind() {
+  private resetEndVideoAnimation() {
     this.videoEndAnimation?.cancel();
     const container = this.backgroundEntryContainer.current;
     if (container === undefined || container === null) { return; }
@@ -141,9 +141,10 @@ export class ParallaxPage extends React.Component<Props> {
           player.stop(); break;
         case VisibilityLevel.singlePixel:
           if (previousVisibilityLevel === VisibilityLevel.barely) { return; }
-          this.onVideoWillRewind();
+          this.resetEndVideoAnimation();
           player.rewind(); break;
         case VisibilityLevel.barely:
+          this.resetEndVideoAnimation();
           player.play();
       }
     }
