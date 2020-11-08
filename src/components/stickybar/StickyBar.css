@@ -1,9 +1,0 @@
-.stickybar-container {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  flex-direction: column;
-  flex-wrap: wrap;
-  top: 5vmin;
-  left: 5vmin;
-}

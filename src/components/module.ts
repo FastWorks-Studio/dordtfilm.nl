@@ -10,6 +10,6 @@ export { Text } from './text/Text';
 export { Player } from './player/Player';
 export { YoutubePlayer } from './youtubeplayer/YoutubePlayer';
 export { FillContainer } from './fillcontainer/FillContainer';
-export { StickyBar } from './stickybar/StickyBar';
+export { BarOverlay, BarOverlayPosition, BarOverlayAlignment } from './baroverlay/BarOverlay';
 export { Pager } from './pager/Pager';
 export type { Animatable } from './Animatable'

@@ -1,5 +1,5 @@
 import React from 'react';
-import './SocialMediaButton.css';
+import './SocialMediaButton.scss';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
 import * as UI from '../module';

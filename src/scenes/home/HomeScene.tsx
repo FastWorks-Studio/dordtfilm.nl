@@ -17,13 +17,15 @@ export class HomeScene extends React.Component<Props> {
   render() {
     return (
         <UI.ParallaxPage image='home.jpg' video='home.mp4' blurBackground={false} blurContent={this.blurLogo} loadingColor='#000000' focalDim={0} animateEntry={true} onDidLoadBackground={this.didLoadBackground.bind(this)}>
-          <UI.StickyBar>
+          <UI.BarOverlay
+          position={UI.BarOverlayPosition.top} 
+          alignment={UI.BarOverlayAlignment.left}>
             <UI.SocialMediaButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
             {/* <UI.SocialMediaButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
-          </UI.StickyBar>
+          </UI.BarOverlay>
           <UI.Logo ref={this.logo} />
           {/* <UI.Spacer size='1vh' />
-          <UI.Button title="Like ons op facebook" action="https://www.facebook.com/dordtfilm" center={true} ref={this.button}/> */}
+          <UI.Button title="Koop nu kaartjes" action="https://www.google.com/" center={true} ref={this.button}/> */}
         </UI.ParallaxPage>
     )
   }

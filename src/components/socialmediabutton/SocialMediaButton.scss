@@ -1,3 +1,5 @@
+@import "../../shared/variables.scss";
+
 .socialmediabutton-icon {
   width: calc(2.5vmin + 2.5vmax);
   height: calc(2.5vmin + 2.5vmax);
@@ -8,12 +10,11 @@
 .socialmediabutton-button {
   font-size: calc(1.4vmin + 1.4vmax);
   font-family: "Isocteur";
-  color: #524c49;
+  color: $primaryTextDark;
   border: none;
   outline: none;
   background-color: transparent;
   font-weight: 600;
-  width: 100%;
   max-width: calc(calc(1.3vmin + 1.3vmax) * 25);
   text-decoration: none;
   text-align: center;

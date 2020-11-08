@@ -9,17 +9,17 @@ type Props = {
 
 export class DownArrow extends React.Component<Props> {
 
-  button: React.RefObject<HTMLButtonElement> = React.createRef();
   img: React.RefObject<HTMLImageElement> = React.createRef();
   container: React.RefObject<HTMLDivElement> = React.createRef();
 
+  private opacity: number = 1;
+  private preferredOpacity: number = 1;
+
   render() {
     return (<>
-      <button ref={this.button} className="down-arrow" onClick={this.didTap.bind(this)} aria-hidden="true" style={{cursor: (this.props.action === undefined) ? `` : `pointer`}}>
-        <div className="down-arrow-container" ref={this.container}>
-          <img ref={this.img} className="down-arrow-image" src="./icons/arrow-down.svg" alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is" />
-        </div>
-      </button>
+      <div className="down-arrow-container" ref={this.container}>
+        <img ref={this.img} className="down-arrow-image" src="./icons/arrow-down.svg" alt="Pijl naar beneden: indicatie dat hieronder nog meer mogelijk is" />
+      </div>
     </>)
   }
 
@@ -28,14 +28,27 @@ export class DownArrow extends React.Component<Props> {
     this.props.action()
   }
 
+  setPreferredOpacity(value: number) {
+    this.preferredOpacity = value;
+    this.renderOpacity();
+  }
+
+  renderOpacity() {
+    const container = this.container?.current;
+    if (container !== null && container !== undefined) { 
+      container.style.opacity = `${Math.min(this.preferredOpacity, this.opacity)}`; 
+    }
+  }
+
   prepareForAnimation() {
-    const button = this.button?.current;
-    if (button !== null && button !== undefined) { button.style.opacity = `0`; }
+    this.opacity = 0;
+    this.renderOpacity();
   }
 
   animateIn(args?: { delay?: number }) {
-    const container = this.container.current;
-    Utility.Animator.animate(this.button.current, { 
+    const img = this.img.current;
+    this.opacity = 1;
+    Utility.Animator.animate(this.container.current, { 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .blurred({ amount: 5 })
@@ -44,7 +57,7 @@ export class DownArrow extends React.Component<Props> {
       duration: 3,
       curve: Models.AnimationCurve.easeOut,
       completion: function() { 
-        if (container) { container.style.animation = "float 3s infinite"; }
+        if (img) { img.style.animation = "float 3s infinite"; }
       }
     });
   }

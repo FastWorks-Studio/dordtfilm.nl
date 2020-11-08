@@ -1,24 +1,7 @@
 @import "../../shared/variables.scss";
 
-.down-arrow {
-  outline: none;
-  border: none;
-  width: 16vmin;
-  padding: 4vmin 0px;
-
-  position: fixed;
-  margin-left: auto;
-  margin-right: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  z-index: 420;
-}
-
 .down-arrow-container {
-  height: 100%;
-  width: 100%;
+  height: 4vmin;
 }
 
 .down-arrow-image {
@@ -27,4 +10,5 @@
   background-position: center;
   user-select: none;
   pointer-events: none;
+  animation: float 3s ease infinite;
 }
