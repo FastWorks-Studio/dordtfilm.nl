@@ -20,12 +20,7 @@ export class App extends React.Component<Props> {
         <Scenes.PeopleScene />
         <Scenes.PassionScene />
         <Scenes.ContactScene />
-        <UI.BarOverlay 
-          alignment={UI.BarOverlayAlignment.center} 
-          position={UI.BarOverlayPosition.bottom}
-          persistence={UI.BarOverlayPersistence.sticky}>
-            <UI.DownArrow ref={this.downArrow} />
-        </UI.BarOverlay>
+        <UI.DownArrow ref={this.downArrow} />
       </>
     );
   }
@@ -46,7 +41,7 @@ export class App extends React.Component<Props> {
       const alpha = Math.min(1, Math.max(0, 1 - (window.scrollY / (window.innerHeight * 0.1))));
       const downArrow = context.downArrow.current;
       if (downArrow === undefined || downArrow === null) { return; }
-      downArrow.setPreferredOpacity(alpha);
+      downArrow.setOpacity(alpha);
     });
   }
 

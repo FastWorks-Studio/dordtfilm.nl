@@ -1,8 +1,24 @@
 @import "../../shared/variables.scss";
 
-.down-arrow-container,
-.down-arrow-additional-container {
-  height: 4vmin;
+.down-arrow {
+  outline: none;
+  border: none;
+  width: 16vmin;
+  padding: 4vmin 0px;
+
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  right: 0;
+
+  z-index: 420;
+}
+
+.down-arrow-container {
+  height: 100%;
+  width: 100%;
 }
 
 .down-arrow-image {
