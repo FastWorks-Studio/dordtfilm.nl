@@ -12,7 +12,7 @@ export class TrailerScene extends React.Component<Props> {
     return (
         <UI.ParallaxPage image='trailer.jpg' blurContent={false}  focalDim={0.5}>
             <UI.Header text="Bekijk de trailer" />
-            <UI.YoutubePlayer name="Trailer" watchId="UaWEIS1gn9c" />
+            <UI.YoutubePlayer name="Trailer" watchId="ZX3cAA7bjgc" />
         </UI.ParallaxPage>
     )
   }
