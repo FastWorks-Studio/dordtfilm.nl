@@ -12,7 +12,7 @@ html {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $background;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
 }
 
 body {
