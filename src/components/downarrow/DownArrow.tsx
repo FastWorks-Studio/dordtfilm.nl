@@ -46,7 +46,9 @@ export class DownArrow extends React.Component<Props> {
         .opacity({ amount: 0 })
         .blurred({ amount: 5 })
         .translated({ y: -150 }),
-        delay: args?.delay,
+      delay: args?.delay,
+      to: Models.Transform.identity
+        .opacity({ amount: 0.15 }),
       duration: 3,
       curve: Models.AnimationCurve.easeOut,
       completion: function() { 
