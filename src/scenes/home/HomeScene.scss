@@ -1,0 +1,14 @@
+@import "../../shared/variables.scss";
+
+.disclaimer {
+  color: $primaryText;
+  font-size: calc(1.1vmin + 1.1vmax);
+  padding: 4vmin;
+  text-align: center;
+}
+
+@media (min-aspect-ratio: 3/2) {
+  .disclaimer {
+    font-size: calc(0.7vmin + 0.7vmax);
+  }
+}
