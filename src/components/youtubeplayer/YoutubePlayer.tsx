@@ -3,7 +3,6 @@ import './YoutubePlayer.css';
 import * as Utility from '../../utility/module';
 
 type Props = {
-  name: string
   watchId: string
   aspectRatio?: number
 }
@@ -21,7 +20,7 @@ export class YoutubePlayer extends React.Component<Props> {
     return (
       <div className="youtubeplayer-container" id={this.containerId}>
         <div className="youtubeplayer-centercontainer">
-          <iframe title={this.props.name} className="youtubeplayer-iframe" id={this.playerId} width={`${this.videoSize.width}px`} height={`${this.videoSize.height}px`} src={`https://www.youtube.com/embed/${this.props.watchId}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
+          <iframe className="youtubeplayer-iframe" id={this.playerId} width={`${this.videoSize.width}px`} height={`${this.videoSize.height}px`} src={`https://www.youtube.com/embed/${this.props.watchId}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
         </div>
       </div>
     );
