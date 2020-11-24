@@ -21,11 +21,11 @@ export class HomeScene extends React.Component<Props> {
           position={UI.BarOverlayPosition.top} 
           alignment={UI.BarOverlayAlignment.left}>
             <UI.IconButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
-            {/* <UI.SocialMediaButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
+            {/* <UI.IconButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
           </UI.BarOverlay>
           <UI.Logo ref={this.logo} />
-          <UI.Spacer size='1vh' />
-          <UI.Button title="Koop nu kaartjes" action="https://www.themoviesdordrecht.nl/" center={true} ref={this.button}/>
+          {/* <UI.Spacer size='1vh' />
+          <UI.Button title="Koop nu kaartjes" action="https://www.themoviesdordrecht.nl/" center={true} ref={this.button}/> */}
         </UI.ParallaxPage>
     )
   }
