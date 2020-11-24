@@ -2,7 +2,7 @@ export { Logo } from './logo/Logo';
 export { Spacer } from './spacer/Spacer';
 export { ParallaxPage } from './parallaxpage/ParallaxPage';
 export { Button } from './button/Button';
-export { SocialMediaButton } from './socialmediabutton/SocialMediaButton';
+export { IconButton, IconButtonAlignment } from './iconbutton/IconButton';
 export { DownArrow } from './downarrow/DownArrow';
 export { Link } from './link/Link';
 export { Header } from './header/Header';

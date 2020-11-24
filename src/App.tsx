@@ -55,6 +55,10 @@ export class App extends React.Component<Props> {
     window.onresize = this.debounce(this.refreshPage, 100).bind(this);
   }
 
+  didTapTickets() {
+    console.log(`info tapped`);
+  }
+
   private debounceTimeout: NodeJS.Timeout | null = null;
   debounce(func: Function, delay: number) {
     let context = this;

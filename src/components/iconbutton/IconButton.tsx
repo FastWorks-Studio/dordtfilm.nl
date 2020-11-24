@@ -1,26 +1,41 @@
 import React from 'react';
-import './SocialMediaButton.scss';
+import './IconButton.scss';
 import * as Utility from '../../utility/module';
 import * as Models from '../../models/module';
 import * as UI from '../module';
+import Spacer from '../spacer/Spacer';
 
 type Props = {
   title: string
   icon: string
   iconAlt: string
   action: string | Function
+  alignment?: IconButtonAlignment
 }
 
-export class SocialMediaButton extends React.Component<Props> implements UI.Animatable {
+export enum IconButtonAlignment {
+  left,
+  right
+}
+
+export class IconButton extends React.Component<Props> implements UI.Animatable {
 
   button: React.RefObject<HTMLButtonElement> = React.createRef();
   img: React.RefObject<HTMLImageElement> = React.createRef();
 
+  get alignment(): IconButtonAlignment
+   { return this.props.alignment === IconButtonAlignment.right 
+    ? IconButtonAlignment.right 
+    : IconButtonAlignment.left }
+
   render() {
     return (
-      <button className='socialmediabutton-button' ref={this.button} onClick={this.didTapCallToAction.bind(this)}>
-        <img className="socialmediabutton-icon" ref={this.img} alt={this.props.iconAlt} src={`./icons/${this.props.icon}`} />
-        {this.props.title}
+      <button className='iconbutton-button' ref={this.button} onClick={this.didTapCallToAction.bind(this)}>
+        {this.alignment === IconButtonAlignment.left || this.props.title}
+        {this.alignment === IconButtonAlignment.left || (<Spacer size='calc(0.9vmin + 0.9vmax)' />)}
+        <img className="iconbutton-icon" ref={this.img} alt={this.props.iconAlt} src={`./icons/${this.props.icon}`} />
+        {this.alignment === IconButtonAlignment.right || (<Spacer size='calc(0.9vmin + 0.9vmax)' />)}
+        {this.alignment === IconButtonAlignment.right || this.props.title}
       </button>
     );
   }
@@ -61,5 +76,3 @@ export class SocialMediaButton extends React.Component<Props> implements UI.Anim
     })
   }
 }
-
-export default SocialMediaButton;

@@ -1,13 +1,12 @@
 @import "../../shared/variables.scss";
 
-.socialmediabutton-icon {
+.iconbutton-icon {
   width: calc(2.5vmin + 2.5vmax);
   height: calc(2.5vmin + 2.5vmax);
-  margin-right: calc(1vmin + 1vmax);
-  padding-bottom: calc(0.3vmin + 0.3vmax);
+  padding-bottom: calc(0.2vmin + 0.2vmax);
 }
 
-.socialmediabutton-button {
+.iconbutton-button {
   font-size: calc(1.4vmin + 1.4vmax);
   font-family: "Isocteur";
   color: $primaryTextDark;
@@ -25,6 +24,6 @@
   align-items: center;
 }
 
-.socialmediabutton-button:hover {
+.iconbutton-button:hover {
   cursor: pointer;
 }

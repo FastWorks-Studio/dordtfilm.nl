@@ -12,7 +12,7 @@ export class HomeScene extends React.Component<Props> {
 
   private logo: React.RefObject<UI.Logo> = React.createRef();
   private button: React.RefObject<UI.Button> = React.createRef();
-  private fbButton: React.RefObject<UI.SocialMediaButton> = React.createRef();
+  private fbButton: React.RefObject<UI.IconButton> = React.createRef();
 
   render() {
     return (
@@ -20,12 +20,12 @@ export class HomeScene extends React.Component<Props> {
           <UI.BarOverlay
           position={UI.BarOverlayPosition.top} 
           alignment={UI.BarOverlayAlignment.left}>
-            <UI.SocialMediaButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
+            <UI.IconButton ref={this.fbButton} title="Like ons" icon="facebook.png" iconAlt="facebook logo" action="https://www.facebook.com/dordtfilm" />
             {/* <UI.SocialMediaButton title="#dordtfilm" icon="twitter.png" iconAlt="twitter logo" action="https://www.facebook.com/dordtfilm" /> */}
           </UI.BarOverlay>
           <UI.Logo ref={this.logo} />
-          {/* <UI.Spacer size='1vh' />
-          <UI.Button title="Koop nu kaartjes" action="https://www.google.com/" center={true} ref={this.button}/> */}
+          <UI.Spacer size='1vh' />
+          <UI.Button title="Koop nu kaartjes" action="https://www.themoviesdordrecht.nl/" center={true} ref={this.button}/>
         </UI.ParallaxPage>
     )
   }
