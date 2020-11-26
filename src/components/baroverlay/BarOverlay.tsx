@@ -3,12 +3,14 @@ import './BarOverlay.scss';
 import * as UI from '../module';
 import * as Utility from '../../utility/module';
 import { isNullishCoalesce } from 'typescript';
+import Spacer from '../spacer/Spacer';
 
 type Props = {
   position: BarOverlayPosition
   alignment: BarOverlayAlignment
   insets?: string
   persistence?: BarOverlayPersistence
+  spacing?: string
 }
 
 export enum BarOverlayPersistence {
@@ -47,7 +49,12 @@ export class BarOverlay extends React.Component<Props> implements UI.Animatable 
           ref={this.div} 
           className="baroverlay-container" 
           style={this.makeStyle()} >
-            {this.props.children}
+            {React.Children.map(this.props.children, (child, index) => { 
+              return (<>
+                {child}
+                {index === React.Children.toArray(this.props.children).length - 1 || (<UI.Spacer size={this.spacing} />)}
+              </>)
+            })}
         </div>
       </div>
     );
@@ -58,6 +65,14 @@ export class BarOverlay extends React.Component<Props> implements UI.Animatable 
       return '5vmin';
     } else {
       return this.props.insets || '0'
+    }
+  }
+
+  get spacing(): string {
+    if (Utility.isVoid(this.props.spacing)) {
+      return '1vmin';
+    } else {
+      return this.props.spacing || '0'
     }
   }
 
