@@ -60,7 +60,8 @@ export class IconButton extends React.Component<Props> implements UI.Animatable 
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .blurred({ amount: 5 })
-        .translated({ x: -130 }),
+        .rotated({ amount: this.alignment === IconButtonAlignment.left ? -10 : 10 })
+        .translated({ x: this.alignment === IconButtonAlignment.left ? -130 : 130 }),
       duration: 2,
       delay: args?.delay,
       curve: Models.AnimationCurve.spring()

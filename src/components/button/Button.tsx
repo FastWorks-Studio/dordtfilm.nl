@@ -49,6 +49,7 @@ export class Button extends React.Component<Props> {
       from: Models.Transform.identity
         .opacity({ amount: 0 })
         .scaled({ amount: 0.95 })
+        .blurred({ amount: 1 })
         .translated({ y: 10 }),
         delay: args?.delay,
       duration: 6,
