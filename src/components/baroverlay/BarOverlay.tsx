@@ -2,8 +2,6 @@ import React from 'react';
 import './BarOverlay.scss';
 import * as UI from '../module';
 import * as Utility from '../../utility/module';
-import { isNullishCoalesce } from 'typescript';
-import Spacer from '../spacer/Spacer';
 
 type Props = {
   position: BarOverlayPosition
@@ -44,7 +42,7 @@ export class BarOverlay extends React.Component<Props> implements UI.Animatable 
       <div 
         ref={this.div} 
         className="baroverlay-safearea-container" 
-        style={{ position: this.position }} >
+        style={this.makeContainerStyle()} >
         <div 
           ref={this.div} 
           className="baroverlay-container" 
@@ -77,8 +75,7 @@ export class BarOverlay extends React.Component<Props> implements UI.Animatable 
   }
 
   get position(): "absolute" | "fixed" {
-    if (this.props.persistence === undefined || this.props.persistence === null) { return 'absolute'; }
-    switch (this.props.persistence) {
+    switch (this.props.persistence ?? BarOverlayPersistence.default) {
       case BarOverlayPersistence.default:
         return 'absolute';
       case BarOverlayPersistence.sticky:
@@ -100,12 +97,34 @@ export class BarOverlay extends React.Component<Props> implements UI.Animatable 
     switch (this.props.alignment) {
       case BarOverlayAlignment.left:
         style.left = this.insets;
-        style.alignItems = `flex-start`; break;
+        style.alignItems = `flex-start`; 
+        break;
       case BarOverlayAlignment.right:
         style.right = this.insets;
-        style.alignItems = `flex-end`; break;
+        style.alignItems = `flex-end`; 
+        break;
       case BarOverlayAlignment.center:
-        style.alignItems = `center`; break;
+        style.alignItems = `center`; 
+        break;
+    }
+    return style;
+  }
+
+  makeContainerStyle() {
+    let style: React.CSSProperties = { position: this.position }
+    switch (this.props.alignment) {
+      case BarOverlayAlignment.left:
+        style.left = "env(safe-area-inset-left)";
+        style.width = "50%";
+        break;
+      case BarOverlayAlignment.right:
+        style.right = "env(safe-area-inset-right)";
+        style.width = "50%";
+        break;
+      case BarOverlayAlignment.center:
+        style.right = "env(safe-area-inset-right)";
+        style.left = "env(safe-area-inset-left)";
+        break;
     }
     return style;
   }
