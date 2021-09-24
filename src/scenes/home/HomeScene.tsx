@@ -32,7 +32,7 @@ export class HomeScene extends React.Component<Props> {
           </UI.BarOverlay>
           <UI.Logo ref={this.logo} />
           <UI.Spacer size='1vh' />
-          <UI.Button title="Koop nu kaartjes" action="https://www.themoviesdordrecht.nl/films/dordrecht-door-de-jaren-heen/" center={true} ref={this.button}/>
+          <UI.Button title="Koop de film" action="https://www.hallodordrecht.nl/artikel/411/dordrecht_door_de_jaren_heen" center={true} ref={this.button}/>
         </UI.ParallaxPage>
     )
   }
